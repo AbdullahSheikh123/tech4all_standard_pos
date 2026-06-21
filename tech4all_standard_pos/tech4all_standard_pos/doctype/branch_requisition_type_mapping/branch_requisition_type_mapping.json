@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-24 15:11:42.725835",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "requisition_type",
+  "branch_requisition_template"
+ ],
+ "fields": [
+  {
+   "fieldname": "requisition_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Requisition Type",
+   "options": "Finished\nPacking",
+   "reqd": 1
+  },
+  {
+   "fieldname": "branch_requisition_template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch Requisition Template",
+   "options": "Branch Requisition Template",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-09-24 15:13:01.502679",
+ "modified_by": "Administrator",
+ "module": "Tech4All Standard POS",
+ "name": "Branch Requisition Type Mapping",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
