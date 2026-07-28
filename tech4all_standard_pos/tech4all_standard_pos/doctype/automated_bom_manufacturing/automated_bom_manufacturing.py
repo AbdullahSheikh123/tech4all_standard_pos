@@ -1,7 +1,7 @@
 # For license information, please see license.txt
 
 import frappe
-import json
+from tech4all_standard_pos import json_compat as json
 from frappe import _
 from frappe.model.document import Document
 from erpnext.stock.doctype.item.item import get_item_defaults

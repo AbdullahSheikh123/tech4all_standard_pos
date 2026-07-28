@@ -2,7 +2,7 @@
 
 import frappe
 from frappe import _
-import json
+from tech4all_standard_pos import json_compat as json
 from frappe.model.document import Document
 
 

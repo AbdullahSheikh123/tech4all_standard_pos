@@ -1,6 +1,7 @@
 # For license information, please see license.txt
 
-import frappe, erpnext, json
+import frappe, erpnext
+from tech4all_standard_pos import json_compat as json
 from frappe import _
 from frappe.utils import nowdate, getdate, flt
 from erpnext.accounts.party import get_party_account

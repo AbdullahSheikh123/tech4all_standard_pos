@@ -9,7 +9,7 @@
 
 ### Main Features
 
-1. Supports Tech4All Version 14
+1. Supports Frappe and ERPNext versions 15 and 16
 2. User friendly and provides a good user experience and speed of use
 3. The cashier has the option of either using list view or card view during sales transactions. Card view shows the images of the items
 4. Supports enqueue invoice submission after printing the receipt for faster processing
@@ -51,7 +51,7 @@ One-click installing available if you are hosting on FC from [here](https://tech
 
 #### Self Hosting:
 
-1. `bench get-app branch version-14 https://github.com/yrestom/POS-Awesome.git`
+1. From a Frappe/ERPNext v15 or v16 bench, run `bench get-app <repository-url> --branch <compatible-branch>`
 2. `bench setup requirements`
 3. `bench build --app tech4all_standard_pos`
 4. `bench restart`
@@ -105,6 +105,7 @@ Available in GitHub [discussions](https://github.com/yrestom/POS-Awesome/discuss
 - [Tech4All](https://github.com/frappe/erpnext)
 - [Vue.js](https://github.com/vuejs/vue)
 - [Vuetify.js](https://github.com/vuetifyjs/vuetify)
+- [orjson](https://github.com/ijl/orjson)
 
 ---
 

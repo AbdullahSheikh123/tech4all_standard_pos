@@ -8,6 +8,7 @@ app_publisher = "Usman Younas"
 app_description = "Tech4All Standard POS"
 app_email = "usman.tech4all@gmail.com"
 app_license = "MIT"
+required_apps = ["erpnext"]
 
 # Includes in <head>
 # ------------------

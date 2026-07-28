@@ -1,7 +1,7 @@
 
 
 from __future__ import unicode_literals
-import json
+from tech4all_standard_pos import json_compat as json
 import frappe
 from datetime import datetime
 import pytz
@@ -11,7 +11,12 @@ from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_a
 from erpnext.stock.get_item_details import get_item_details
 from erpnext.accounts.doctype.pos_profile.pos_profile import get_item_groups
 from frappe.utils.background_jobs import enqueue
-from erpnext.accounts.party import get_party_bank_account
+try:
+    # ERPNext v15 and v16
+    from erpnext.accounts.doctype.bank_account.bank_account import get_party_bank_account
+except ImportError:
+    # Compatibility with older ERPNext releases
+    from erpnext.accounts.party import get_party_bank_account
 from erpnext.stock.doctype.batch.batch import (
     get_batch_no,
     get_batch_qty,
@@ -2335,13 +2340,18 @@ def search_orders(company, currency, pos_profile=None, order_name=None):
 
 
 def get_version():
-    branch_name = get_app_branch("erpnext")
-    if "12" in branch_name:
-        return 12
-    elif "13" in branch_name:
-        return 13
-    else:
-        return 13
+    """Return the installed ERPNext major version without relying on git."""
+    try:
+        from importlib.metadata import PackageNotFoundError, version
+
+        return int(version("erpnext").split(".", 1)[0])
+    except (ImportError, PackageNotFoundError, ValueError):
+        try:
+            import erpnext
+
+            return int(erpnext.__version__.split(".", 1)[0])
+        except (AttributeError, ValueError):
+            return 15
 
 
 def get_app_branch(app):

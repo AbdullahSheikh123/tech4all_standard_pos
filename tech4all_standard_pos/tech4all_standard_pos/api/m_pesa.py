@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import frappe, requests
 from frappe import _
 from requests.auth import HTTPBasicAuth
-import json
+from tech4all_standard_pos import json_compat as json
 
 
 def get_token(app_key, app_secret, base_url):
