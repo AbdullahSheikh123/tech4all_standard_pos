@@ -2562,7 +2562,7 @@ def get_item_attributes(item_code):
     # Get all attributes for the given item
     attributes = frappe.db.get_all(
         "Item Variant Attribute",
-        fields=["attribute","attribute_value",""],
+        fields=["attribute", "attribute_value"],
         filters={"parenttype": "Item", "variant_of": item_code},
         order_by="idx asc",
     )
