@@ -555,18 +555,29 @@ def get_variant_with_rate(item_code, order_type):
     return variant_doc_dict
 
 def get_price_list(order_type):
-        price_list_data = frappe.db.sql(
-            """
-            SELECT name
-            FROM `tabPrice List`
-            WHERE order_type = %s
-            LIMIT 1
-            """, (order_type), as_dict=True
-        )
-        if price_list_data:
-            return price_list_data[0].name
-        else:
-            return None
+    if not order_type:
+        return None
+
+    price_list_meta = frappe.get_meta("Price List")
+    order_type_field = None
+    for fieldname in ("custom_order_type", "order_type"):
+        if price_list_meta.has_field(fieldname):
+            order_type_field = fieldname
+            break
+
+    if not order_type_field:
+        return None
+
+    return frappe.db.get_value(
+        "Price List",
+        {
+            order_type_field: order_type,
+            "enabled": 1,
+            "selling": 1,
+        },
+        "name",
+        order_by="modified desc",
+    )
 
 
 @frappe.whitelist()
