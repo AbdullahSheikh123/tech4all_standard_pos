@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="1" class="border-16 summary-main-card">
-    <v-card class="pa-6 m-3 order-card" style="background: #f4f4f4" elevation="0">
+    <v-card class="pa-4 ma-3 order-card" style="background: #f4f4f4" elevation="0">
       <!-- Table Heading -->
       <v-row class="table-header">
         <v-col cols="5">
@@ -1372,19 +1372,31 @@ onUnmounted(() => {
 
 <style scoped>
 .summary-main-card {
-  max-height: 80vh;
-  height: 80vh;
+  max-height: calc(100vh - 176px);
+  height: calc(100vh - 176px);
   overflow-x: hidden;
   overflow-y: auto;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .order-card {
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   max-height: 360px;
   height: 300px;
+}
+
+@media (max-width: 959px) {
+  .summary-main-card {
+    height: auto;
+    max-height: none;
+  }
+
+  .order-card {
+    height: auto;
+    min-height: 240px;
+  }
 }
 
 .table-header {

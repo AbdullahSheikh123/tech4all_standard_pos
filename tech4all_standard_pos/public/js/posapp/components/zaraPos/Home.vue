@@ -1,18 +1,18 @@
 <template>
-  <div fluid class="mt-4" style="background: #f4f4f4">
+  <div fluid class="pos-shell" style="background: #f4f4f4">
     <Header v-if="!dialog" />
     <ProductDialog />
     <PosOpeningDialog v-if="dialog" :dialog="dialog" />
     <PosClosingDialog />
     <!-- product Items row -->
-    <v-row class="px-2" v-show="!dialog">
-      <v-col cols="8">
+    <v-row class="pos-content" v-show="!dialog">
+      <v-col cols="12" md="8" class="pos-products-column">
         <ProductList v-show="screen === 0" />
         <Payment v-show="screen === 1" />
         <OrderHistory v-show="screen === 2" />
         <HoldOrder v-show="screen === 3" />
       </v-col>
-      <v-col cols="4">
+      <v-col cols="12" md="4" class="pos-summary-column">
         <OrderSummary />
       </v-col>
     </v-row>
@@ -324,6 +324,26 @@ onUnmounted(() => {
 <style scoped>
 .v-application {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.pos-shell {
+  min-height: calc(100vh - 48px);
+  padding: 12px 16px 16px;
+}
+
+.pos-content {
+  margin: 0 -6px;
+}
+
+.pos-products-column,
+.pos-summary-column {
+  padding: 6px;
+}
+
+@media (max-width: 959px) {
+  .pos-shell {
+    padding: 8px;
+  }
 }
 
 .zara-title {

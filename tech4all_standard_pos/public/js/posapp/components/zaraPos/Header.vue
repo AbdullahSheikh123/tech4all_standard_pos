@@ -1,28 +1,28 @@
 <template>
-  <v-row class="pt-0 px-2">
-    <v-col cols="12" md="8">
-      <v-card elevation="1" class="border-16 title-card d-flex align-center px-4 py-2">
+  <v-row class="pos-header">
+    <v-col cols="12" md="8" class="pos-header-main">
+      <v-card elevation="1" class="border-16 title-card d-flex align-center">
         <v-row align="center" class="flex-nowrap">
           <!-- Logo -->
-          <v-col cols="2" class="d-flex align-center">
+          <v-col cols="2" class="d-flex align-center py-1">
             <img src="/assets/tech4all_standard_pos/js/posapp/components/pos/client.png" alt="Logo"
               style="height: 60px; width: auto;" />
           </v-col>
 
           <!-- Table No -->
-          <v-col cols="3">
+          <v-col cols="3" class="py-1">
             <v-select v-model="selectedTable" :items="tableArray" label="Table No" style="border-radius: 6px; height: 51px;" class="pr-2 " density="compact"
               variant="outlined" item-title="table_no" :disabled="currentScreen !== 0" />
           </v-col>
 
           <!-- Order Type -->
-          <v-col cols="3">
+          <v-col cols="3" class="py-1">
             <v-select v-model="selectedOrderType" :items="orderTypes" label="Order Type" style="border-radius: 6px; height: 51px;" class="pr-2" density="compact"
               variant="outlined" item-title="order_type" :disabled="currentScreen !== 0" />
           </v-col>
 
           <!-- Search Input -->
-          <v-col cols="4">
+          <v-col cols="4" class="py-1">
             <v-text-field v-model="searchValue" variant="outlined" append-inner-icon="mdi-magnify"
               placeholder="Find Your Item" density="compact" class="mr-2" style="border-radius: 6px; height: 51px;" />
           </v-col>
@@ -31,7 +31,7 @@
     </v-col>
 
     <!-- POS Info / Logout -->
-    <v-col cols="12" md="4" class="p-4">
+    <v-col cols="12" md="4" class="pos-header-actions">
       <div class="d-flex align-center">
         <div class="d-flex align-center">
           <p class="mt-0 mr-2 font-weight-bold">POS:</p>
@@ -260,9 +260,29 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .title-card {
-  padding: 9px 0px 9px 0px;
+  min-height: 72px;
+  padding: 8px 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
   border-radius: 12px;
+}
+
+.pos-header {
+  margin: 0 -6px 6px;
+}
+
+.pos-header-main,
+.pos-header-actions {
+  padding: 6px;
+}
+
+.pos-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.pos-header-actions > div {
+  width: 100%;
+  gap: 12px;
 }
 
 .search-div {
@@ -278,22 +298,33 @@ onBeforeUnmount(() => {
 .pos-id {
   border: 1px solid;
   border-radius: 6px;
-  width: 195px;
+  width: clamp(120px, 10vw, 195px);
   height: 48px;
-  padding-top: 15px;
-  padding-left: 8px;
-  margin-left: 14px;
+  padding: 13px 10px;
+  margin-left: 8px;
   background: white;
 }
 
 .pos-close {
   border: 1px solid #f05d23;
   border-radius: 6px;
-  width: 195px;
+  width: clamp(130px, 10vw, 195px);
   height: 48px;
-  padding-left: 8px;
-  margin-left: 14px;
+  padding: 0 12px;
+  margin-left: 0;
   background: #fcdfd3;
+}
+
+@media (max-width: 959px) {
+  .pos-header-actions {
+    padding-top: 0;
+  }
+
+  .pos-id,
+  .pos-close {
+    width: auto;
+    min-width: 130px;
+  }
 }
 
 .pos-p {

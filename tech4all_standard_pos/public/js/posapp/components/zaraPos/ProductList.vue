@@ -30,10 +30,10 @@
         <p class="pt-6 pl-5 title-h">Products</p>
       </v-col>
     </v-row>
-    <v-row class="px-10 pb-0" v-show="filteredProducts.length > 0">
+    <v-row class="products-grid" v-show="filteredProducts.length > 0">
       <!-- Product Cards -->
-      <v-col v-for="product in filteredProducts" :key="product.item_code" cols="12" sm="6" md="4" lg="2" xl="2"
-        class="mb-4 pt-0">
+      <v-col v-for="product in filteredProducts" :key="product.item_code" cols="12" sm="6" md="4" lg="3" xl="2"
+        class="product-column">
         <v-card class="hover-card" elevation="0" @click="openDialog(product)">
           <img :src="product.image ? product.image : defaultImg" class="white--text align-end item-img"
             v-show="!product.loading" />
@@ -1217,15 +1217,25 @@ onUnmounted(() => {
 }
 
 .product-main-card {
-  max-height: 80vh;
-  height: 80vh;
+  max-height: calc(100vh - 176px);
+  height: calc(100vh - 176px);
   overflow-y: scroll;
   overflow-x: hidden;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
+.products-grid {
+  padding: 0 16px 12px;
+}
+
+.product-column {
+  padding: 6px;
+}
+
 .hover-card {
-  border-radius: 16px;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .hover-card:hover {
@@ -1258,8 +1268,10 @@ onUnmounted(() => {
 .item-img {
   border-top-left-radius: 13px !important;
   border-top-right-radius: 13px !important;
-  width: 350px;
-  height: 140px;
+  display: block;
+  width: 100%;
+  height: 132px;
+  object-fit: cover;
 }
 
 .item-name {
@@ -1283,6 +1295,18 @@ onUnmounted(() => {
 
 .category-p {
   color: black !important;
+}
+
+@media (max-width: 959px) {
+  .product-main-card {
+    height: auto;
+    min-height: 60vh;
+    max-height: none;
+  }
+
+  .products-grid {
+    padding-inline: 10px;
+  }
 }
 
 .unactive-catgory {
