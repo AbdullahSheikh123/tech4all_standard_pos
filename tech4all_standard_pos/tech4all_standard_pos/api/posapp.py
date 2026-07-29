@@ -332,22 +332,49 @@ def get_items(
                         fields=["item"],
                     )
                 }
-            item_prices_data = frappe.get_all(
-                "Item Price",
-                fields=["item_code", "price_list_rate", "currency", "uom"],
-                filters={
-                    "price_list": price_list,
-                    "item_code": ["in", items],
-                    "currency": pos_profile.get("currency"),
-                    "selling": 1,
-                    "valid_from": ["<=", today],
-                    "customer": ["in", ["", None, customer]],
-                },
-                or_filters=[
-                    ["valid_upto", ">=", today],
-                    ["valid_upto", "in", ["", None]],
-                ],
-                order_by="valid_from ASC, valid_upto DESC",
+            def get_applicable_item_prices(item_codes):
+                prices = frappe.get_all(
+                    "Item Price",
+                    fields=[
+                        "item_code",
+                        "price_list_rate",
+                        "currency",
+                        "uom",
+                        "customer",
+                        "valid_from",
+                        "valid_upto",
+                    ],
+                    filters={
+                        "price_list": price_list,
+                        "item_code": ["in", item_codes],
+                        "currency": pos_profile.get("currency"),
+                        "selling": 1,
+                    },
+                    limit_page_length=0,
+                )
+                today_date = getdate(today)
+                prices = [
+                    price
+                    for price in prices
+                    if (not price.valid_from or getdate(price.valid_from) <= today_date)
+                    and (not price.valid_upto or getdate(price.valid_upto) >= today_date)
+                    and (not price.customer or price.customer == customer)
+                ]
+                # Generic prices come first. A newer or customer-specific
+                # applicable price then replaces it for the same item/UOM.
+                prices.sort(
+                    key=lambda price: (
+                        bool(price.customer),
+                        getdate(price.valid_from)
+                        if price.valid_from
+                        else getdate("1900-01-01"),
+                    )
+                )
+                return prices
+
+            item_prices_data = get_applicable_item_prices(items)
+            price_not_uom_dependent = frappe.db.get_value(
+                "Price List", price_list, "price_not_uom_dependent"
             )
 
             item_prices = {}
@@ -368,35 +395,20 @@ def get_items(
                         order_by="creation ASC"
                     )
                     if first_variant:
-                        variant_price = (
-                            frappe.get_all(
-                                "Item Price",
-                                fields=["price_list_rate", "currency", "uom"],
-                                filters={
-                                    "price_list": price_list,
-                                    "item_code": first_variant,
-                                    "currency": pos_profile.get("currency"),
-                                    "selling": 1,
-                                    "valid_from": ["<=", today],
-                                    "customer": ["in", ["", None, customer]],
-                                },
-                                or_filters=[
-                                    ["valid_upto", ">=", today],
-                                    ["valid_upto", "in", ["", None]],
-                                ],
-                                order_by="valid_from ASC, valid_upto DESC",
-                                limit_page_length=1
-                            ) or [{}]
-                        )[0]
+                        variant_prices = get_applicable_item_prices([first_variant])
+                        variant_price = variant_prices[-1] if variant_prices else {}
                         if variant_price:
                             item_price = variant_price
                 else:
                     if item_prices.get(item_code):
+                        prices_by_uom = item_prices.get(item_code)
                         item_price = (
-                            item_prices.get(item_code).get(item.stock_uom)
-                            or item_prices.get(item_code).get("None")
+                            prices_by_uom.get(item.stock_uom)
+                            or prices_by_uom.get("None")
                             or {}
                         )
+                        if not item_price and price_not_uom_dependent:
+                            item_price = next(iter(prices_by_uom.values()), {})
 
                 item_barcode = frappe.get_all(
                     "Item Barcode",
@@ -465,6 +477,7 @@ def get_items(
                     row.update(
                         {
                             "rate": item_price.get("price_list_rate") or 0,
+                            "price_list": price_list,
                             "currency": item_price.get("currency")
                             or pos_profile.get("currency"),
                             "item_barcode": item_barcode or [],
@@ -559,25 +572,22 @@ def get_price_list(order_type):
         return None
 
     price_list_meta = frappe.get_meta("Price List")
-    order_type_field = None
     for fieldname in ("custom_order_type", "order_type"):
         if price_list_meta.has_field(fieldname):
-            order_type_field = fieldname
-            break
+            price_list = frappe.db.get_value(
+                "Price List",
+                {
+                    fieldname: order_type,
+                    "enabled": 1,
+                    "selling": 1,
+                },
+                "name",
+                order_by="modified desc",
+            )
+            if price_list:
+                return price_list
 
-    if not order_type_field:
-        return None
-
-    return frappe.db.get_value(
-        "Price List",
-        {
-            order_type_field: order_type,
-            "enabled": 1,
-            "selling": 1,
-        },
-        "name",
-        order_by="modified desc",
-    )
+    return None
 
 
 @frappe.whitelist()
