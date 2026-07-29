@@ -162,7 +162,10 @@ class POSClosingShift(Document):
 @frappe.whitelist()
 def get_cashiers(doctype, txt, searchfield, start, page_len, filters):
     cashiers_list = frappe.get_all("POS Profile User", filters=filters, fields=["user"])
-    return [c["user"] for c in cashiers_list]
+    # Link-field query results must be rows, even when each row has one value.
+    # Returning plain strings is rendered character-by-character by Frappe v16.
+    # This row format is also the documented query format used by Frappe v15.
+    return [[cashier["user"]] for cashier in cashiers_list]
 
 
 @frappe.whitelist()

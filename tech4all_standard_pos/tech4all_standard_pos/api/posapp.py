@@ -60,8 +60,13 @@ def get_opening_dialog_data():
     for i in data["pos_profiles_data"]:
         pos_profiles_list.append(i.name)
 
+    # Read the child DocType from POS Profile metadata instead of guessing it
+    # from the ERPNext version. Both v15 and v16 use "POS Payment Method";
+    # "Sales Invoice Payment" belongs to Sales Invoice and returns no rows for
+    # a POS Profile.
+    payments_field = frappe.get_meta("POS Profile").get_field("payments")
     payment_method_table = (
-        "POS Payment Method" if get_version() == 13 else "Sales Invoice Payment"
+        payments_field.options if payments_field else "POS Payment Method"
     )
     data["payments_method"] = frappe.get_list(
         payment_method_table,
