@@ -193,10 +193,31 @@ def get_items(
         ttl = int(ttl) * 30
 
     @redis_cache(ttl=ttl or 1800)
-    def __get_items(pos_profile, price_list, item_group, search_value, customer=None):
-        return _get_items(pos_profile, price_list, item_group, search_value, customer)
+    def __get_items(
+        pos_profile,
+        price_list,
+        item_group,
+        search_value,
+        customer=None,
+        order_type=None,
+    ):
+        return _get_items(
+            pos_profile,
+            price_list,
+            item_group,
+            search_value,
+            customer,
+            order_type,
+        )
 
-    def _get_items(pos_profile, price_list, item_group, search_value, customer=None):
+    def _get_items(
+        pos_profile,
+        price_list,
+        item_group,
+        search_value,
+        customer=None,
+        order_type=None,
+    ):
         pos_profile = json.loads(pos_profile)
         today = nowdate()
         data = dict()
@@ -451,9 +472,23 @@ def get_items(
         return result
 
     if _pos_profile.get("posa_use_server_cache"):
-        return __get_items(pos_profile, price_list, item_group, search_value, customer)
+        return __get_items(
+            pos_profile,
+            price_list,
+            item_group,
+            search_value,
+            customer,
+            order_type,
+        )
     else:
-        return _get_items(pos_profile, price_list, item_group, search_value, customer)
+        return _get_items(
+            pos_profile,
+            price_list,
+            item_group,
+            search_value,
+            customer,
+            order_type,
+        )
 
 def get_item_group_condition(pos_profile):
     cond = " and 1=1"

@@ -152,7 +152,16 @@ const offlineProfileData = async () => {
 
     if (data && data.length > 0) {
       pos_profile.value = data[0]; // Assuming pos_profile is in the first index
-      orderTypes.value = pos_profile.value.applicable_for_order_type;
+      orderTypes.value = Array.isArray(
+        pos_profile.value?.applicable_for_order_type
+      )
+        ? pos_profile.value.applicable_for_order_type
+        : [];
+      if (!orderTypes.value.length) {
+        selectedOrderType.value = null;
+        eventBus.emit("required-order-id", false);
+        return;
+      }
       selectedOrderType.value =
         orderTypes.value.find((orderType) => orderType.default === 1)
           ?.order_type || orderTypes.value[0].order_type;
@@ -190,9 +199,26 @@ onMounted(() => {
   //   // console.log("in-header You are offline");
   //   // offlineProfileData();
   // });
-  eventBus.on("send_pos_profile", (profile) => {
+  eventBus.on("send_pos_profile", async (profile) => {
     pos_profile.value = profile;
-    orderTypes.value = pos_profile.value.applicable_for_order_type;
+    orderTypes.value = Array.isArray(
+      pos_profile.value?.applicable_for_order_type
+    )
+      ? pos_profile.value.applicable_for_order_type
+      : [];
+
+    // Some profiles do not have the optional order-type child table. Fall
+    // back to the global Order Type list instead of dereferencing row zero.
+    if (!orderTypes.value.length) {
+      await fetchOrderTypes();
+    }
+    if (!orderTypes.value.length) {
+      selectedOrderType.value = null;
+      eventBus.emit("required-order-id", false);
+      fetchTableOptions();
+      return;
+    }
+
     selectedOrderType.value =
       orderTypes.value.find((orderType) => orderType.default === 1)
         ?.order_type || orderTypes.value[0].order_type;

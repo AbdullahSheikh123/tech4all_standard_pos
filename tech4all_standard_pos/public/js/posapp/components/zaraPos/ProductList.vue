@@ -180,6 +180,7 @@ let intervalId = ref(null);
 let checkConnectionInterval = null;
 const requestComplete = ref(false);
 const itemloading = ref(false);
+let itemRequestId = 0;
 const getAllItems = ref(false);
 const offlineMode = ref(false);
 const unsyncInvoice = ref(0);
@@ -914,6 +915,17 @@ const changeCategory = (category) => {
 const get_items = async (pos_profile, groupItem) => {
   // console.log("groupItem", selectedCategory.value);
 
+  if (!navigator.onLine) {
+    handleOffline();
+    return;
+  }
+  if (!pos_profile || !groupItem?.item_group || !orderType.value) {
+    products.value = [];
+    itemloading.value = false;
+    return;
+  }
+
+  const requestId = ++itemRequestId;
   if (navigator.onLine) {
     try {
       itemloading.value = true;
@@ -929,11 +941,10 @@ const get_items = async (pos_profile, groupItem) => {
         },
       });
 
-      if (response.message) {
+      if (requestId === itemRequestId && response.message) {
         // console.log("get-items1", response.message, response.message.length);
         products.value = [];
         products.value = response.message;
-        itemloading.value = false;
         // Store in localStorage
         localStorage.setItem("items_storage", JSON.stringify(response.message));
 
@@ -959,9 +970,11 @@ const get_items = async (pos_profile, groupItem) => {
       }
     } catch (error) {
       console.error("Error saving Items:", error);
+    } finally {
+      if (requestId === itemRequestId) {
+        itemloading.value = false;
+      }
     }
-  } else {
-    handleOffline();
   }
 };
 // const loadAllItems = async (pos_profile, groupItem) => {
@@ -1113,14 +1126,18 @@ onMounted(() => {
   eventBus.on("send_pos_profile", async (profile) => {
     console.log("pos-profile", profile);
     pos_profile.value = profile;
-    categories.value = profile.item_groups;
-    selectedCategory.value = categories.value[0];
+    categories.value = Array.isArray(profile?.item_groups)
+      ? profile.item_groups
+      : [];
+    selectedCategory.value = categories.value[0] || null;
 
-    const getItemsStatus =
-      JSON.parse(localStorage.getItem("get-all-item-status")) || false;
-
-    if (!getItemsStatus) {
-      loadAllItems(pos_profile.value);
+    // Online item lists are loaded for the active order type only. Preloading
+    // every order type here caused duplicate, sequential, expensive requests
+    // and could leave an empty local cache marked as complete.
+    getAllItems.value = false;
+    localStorage.setItem("get-all-item-status", "false");
+    if (orderType.value && selectedCategory.value) {
+      await get_items(pos_profile.value, selectedCategory.value);
     }
     if (profile) {
       await indexedDBService
@@ -1146,20 +1163,17 @@ onMounted(() => {
   eventBus.on("update_get_item", (data) => {
     // console.log("received-order", data);
     orderType.value = data;
-    const getItemsStatus =
-      JSON.parse(localStorage.getItem("get-all-item-status")) || false;
-    // console.log("getItemsStatus", getItemsStatus);
-    if (!getItemsStatus) {
-      get_items(pos_profile.value, selectedCategory.value, data);
-    } else {
-      changeCategory(selectedCategory.value);
+    if (pos_profile.value && selectedCategory.value) {
+      get_items(pos_profile.value, selectedCategory.value);
     }
-    // loadAllItems(pos_profile.value, selectedCategory.value);
   });
   eventBus.on("open-product-menu", () => {
-    if (navigator.onLine) {
+    if (
+      navigator.onLine &&
+      pos_profile.value &&
+      selectedCategory.value
+    ) {
       get_items(pos_profile.value, selectedCategory.value);
-      loadAllItems(pos_profile.value, selectedCategory.value);
     }
   });
   eventBus.on("app-internet-status", (newStatus) => {
