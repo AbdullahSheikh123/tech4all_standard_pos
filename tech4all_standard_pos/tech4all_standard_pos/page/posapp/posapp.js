@@ -1,5 +1,74 @@
 {% include "tech4all_standard_pos/tech4all_standard_pos/page/posapp/onscan.js" %}
+
+const TECH4ALL_POS_FULLSCREEN_CLASS = "tech4all-pos-fullscreen";
+
+function set_pos_fullscreen(enabled) {
+	document.body.classList.toggle(TECH4ALL_POS_FULLSCREEN_CLASS, enabled);
+}
+
+function install_pos_fullscreen_styles() {
+	if (document.getElementById("tech4all-pos-fullscreen-styles")) {
+		return;
+	}
+
+	const style = document.createElement("style");
+	style.id = "tech4all-pos-fullscreen-styles";
+	style.textContent = `
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} {
+			--desk-sidebar-width: 0px;
+		}
+
+		/* Frappe v16 Desk sidebar */
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} .desk-sidebar,
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} .body-sidebar {
+			display: none !important;
+		}
+
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} > .main-section,
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} .main-section {
+			margin-left: 0 !important;
+			width: 100% !important;
+			max-width: none !important;
+		}
+
+		/* Frappe v15 page layout sidebar */
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} #page-posapp .layout-side-section {
+			display: none !important;
+		}
+
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} #page-posapp .layout-main,
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} #page-posapp .layout-main-section,
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} #page-posapp .page-container {
+			width: 100% !important;
+			max-width: none !important;
+			margin-left: 0 !important;
+		}
+
+		body.${TECH4ALL_POS_FULLSCREEN_CLASS} #page-posapp .layout-main {
+			grid-template-columns: minmax(0, 1fr) !important;
+		}
+	`;
+	document.head.appendChild(style);
+
+	// on_page_hide is not emitted consistently by every supported Desk
+	// version, so also remove the class whenever the route changes.
+	if (
+		frappe.router &&
+		typeof frappe.router.on === "function" &&
+		!window.__tech4all_pos_route_listener
+	) {
+		window.__tech4all_pos_route_listener = true;
+		frappe.router.on("change", function () {
+			const route = frappe.get_route();
+			set_pos_fullscreen(route && route[0] === "posapp");
+		});
+	}
+}
+
 frappe.pages['posapp'].on_page_load = function (wrapper) {
+	install_pos_fullscreen_styles();
+	set_pos_fullscreen(true);
+
 	var page = frappe.ui.make_app_page({
 		parent: wrapper,
 		title: 'Tech4All POS',
@@ -16,6 +85,15 @@ frappe.pages['posapp'].on_page_load = function (wrapper) {
 	$("head").append("<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' />");
 	$("head").append("<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
+};
+
+frappe.pages['posapp'].on_page_show = function () {
+	install_pos_fullscreen_styles();
+	set_pos_fullscreen(true);
+};
+
+frappe.pages['posapp'].on_page_hide = function () {
+	set_pos_fullscreen(false);
 };
 
 //Only if PT as we are not being able to load from pt.csv

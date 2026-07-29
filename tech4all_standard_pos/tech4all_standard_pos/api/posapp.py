@@ -322,6 +322,16 @@ def get_items(
 
         if items_data:
             items = [d.item_code for d in items_data]
+            add_on_items = set()
+            if frappe.db.exists("DocType", "Item Add-Ons"):
+                add_on_items = {
+                    row.item
+                    for row in frappe.get_all(
+                        "Item Add-Ons",
+                        filters={"item": ["in", items]},
+                        fields=["item"],
+                    )
+                }
             item_prices_data = frappe.get_all(
                 "Item Price",
                 fields=["item_code", "price_list_rate", "currency", "uom"],
@@ -463,6 +473,7 @@ def get_items(
                             "batch_no_data": batch_no_data or [],
                             "attributes": attributes or "",
                             "item_attributes": item_attributes or "",
+                            "has_add_ons": item_code in add_on_items,
                             # "variants": variants or [],
                             # "add_ons": item_add_on_doc or []
                         }

@@ -181,6 +181,7 @@ let checkConnectionInterval = null;
 const requestComplete = ref(false);
 const itemloading = ref(false);
 let itemRequestId = 0;
+const variantAddonCache = new Map();
 const getAllItems = ref(false);
 const offlineMode = ref(false);
 const unsyncInvoice = ref(0);
@@ -805,8 +806,13 @@ async function markRecordAsSynced(db, record) {
 const openDialog = (product, flag = false) => {
   // console.log("Product clicked:", product);
   product.qty = 1;
-  product.loading = true
-  get_variants(product, flag)
+  if (!product.has_variants && !product.has_add_ons) {
+    eventBus.emit("open-product-dialog", { product, flag });
+    return;
+  }
+
+  product.loading = true;
+  get_variants(product, flag);
 
   // if (product.has_variants) {
   //   get_variants(product,flag)
@@ -824,31 +830,40 @@ const openDialog = (product, flag = false) => {
 };
 const get_variants = async (product, flag) => {
   try {
-    const response = await frappe.call({
-      method: "tech4all_standard_pos.tech4all_standard_pos.api.posapp.get_variants_addons",
-      args: {
-        pos_profile: pos_profile.value,
-        item_code: product.item_code,
-        order_type: orderType.value
-      },
-    });
+    const cacheKey = `${orderType.value || ""}:${product.item_code}`;
+    let variantsAndAddons = variantAddonCache.get(cacheKey);
 
-    if (response.message) {
-      console.log("get_variants", response.message);
-      response.message[0].Attributes[0].forEach((variant) => {
+    if (!variantsAndAddons) {
+      const response = await frappe.call({
+        method: "tech4all_standard_pos.tech4all_standard_pos.api.posapp.get_variants_addons",
+        args: {
+          pos_profile: pos_profile.value,
+          item_code: product.item_code,
+          order_type: orderType.value
+        },
+      });
+      variantsAndAddons = response.message;
+      if (variantsAndAddons) {
+        variantAddonCache.set(cacheKey, variantsAndAddons);
+      }
+    }
+
+    if (variantsAndAddons) {
+      console.log("get_variants", variantsAndAddons);
+      variantsAndAddons[0].Attributes[0].forEach((variant) => {
         variant.required = true;
         variant.valueSelect = false;
         variant.display_name = variant.attribute
         variant.type = 'variant'
       })
-      response.message[0].add_ons.forEach((addon) => {
+      variantsAndAddons[0].add_ons.forEach((addon) => {
         addon.type = 'addon'
         addon.values = addon.item_add_ons
       })
-      if (response.message[0].Attributes[0].length == 0 && response.message[0].add_ons.length > 0) {
+      if (variantsAndAddons[0].Attributes[0].length == 0 && variantsAndAddons[0].add_ons.length > 0) {
         onlyAddOn.value = true
       }
-      if (response.message[0].add_ons.length > 0) {
+      if (variantsAndAddons[0].add_ons.length > 0) {
         calledBundleApi.value = true
         const obj = {
           item_code: `${product.item_code}`,
@@ -861,8 +876,8 @@ const get_variants = async (product, flag) => {
       }
 
       parentItem.value.item_name = product.item_name
-      parentItem.value.attributes = [...response.message[0].Attributes[0], ...response.message[0].add_ons]
-      parentItem.value.variants = response.message[0].variants
+      parentItem.value.attributes = [...variantsAndAddons[0].Attributes[0], ...variantsAndAddons[0].add_ons]
+      parentItem.value.variants = variantsAndAddons[0].variants
       console.log("parentItem", parentItem.value)
       if (parentItem.value.attributes.length > 0) {
         variantsDialog.value = true
@@ -875,7 +890,6 @@ const get_variants = async (product, flag) => {
         };
         eventBus.emit("open-product-dialog", obj);
       }
-      product.loading = false
       // parentItem.value.attributes.forEach((item) => {
       //   item.required = true;
       //   item.valueSelect = false;
@@ -884,6 +898,8 @@ const get_variants = async (product, flag) => {
 
   } catch (error) {
     console.error("Error fetching order types:", error);
+  } finally {
+    product.loading = false;
   }
 };
 const changeCategory = (category) => {
