@@ -41,13 +41,25 @@ function ensureQzConnected(host, branch) {
         qz.security.setSignaturePromise((toSign) => (resolve, reject) => {
             getQzCredentials(qz_current_branch)
                 .then((c) => {
+                    console.log("[QZ SIGN] private_key starts with:", c.private_key?.slice(0, 30));
+                    console.log("[QZ SIGN] private_key length:", c.private_key?.length);
+                    console.log("[QZ SIGN] toSign:", toSign);
+
                     const pk = KEYUTIL.getKey(c.private_key);
-                    const sig = new KJUR.crypto.Signature({ alg: "SHA512withRSA" });
+                    console.log("[QZ SIGN] parsed key type/bitLength:", pk?.type, pk?.n?.bitLength?.());
+
+                    const sig = new KJUR.crypto.Signature({ alg: "SHA1withRSA" });
                     sig.init(pk);
                     sig.updateString(toSign);
-                    resolve(stob64(hextorstr(sig.sign())));
+                    const hexSig = sig.sign();
+                    console.log("[QZ SIGN] signature hex length:", hexSig.length, "(expect ~1024 for a 2048-bit key with SHA512, or same for SHA1 - hex length is driven by key size, not hash algo)");
+
+                    resolve(stob64(hextorstr(hexSig)));
                 })
-                .catch(reject);
+                .catch((e) => {
+                    console.error("[QZ SIGN] signing threw:", e);
+                    reject(e);
+                });
         });
         qz_security_configured = true;
     }
@@ -79,15 +91,25 @@ function getItemFromOfflineDb(itemCode) {
 
         dbRequest.onsuccess = (event) => {
             const db = event.target.result;
-            const transaction = db.transaction(["items"], "readonly");
-            const store = transaction.objectStore("items");
-            const request = store.get(itemCode);
+            try {
+                const transaction = db.transaction(["items"], "readonly");
+                const store = transaction.objectStore("items");
+                const request = store.get(itemCode);
 
-            request.onsuccess = () => resolve(request.result || null);
-            request.onerror = () => reject("Error fetching item data");
+                request.onsuccess = () => resolve(request.result || null);
+                request.onerror = () =>
+                    reject(request.error?.name + ": " + request.error?.message);
+            } catch (e) {
+                // e.g. DOMException: "items" object store doesn't exist yet
+                reject(e.name + ": " + e.message);
+            }
         };
 
-        dbRequest.onerror = () => reject("Error opening IndexedDB");
+        dbRequest.onerror = () =>
+            reject(
+                "Error opening IndexedDB: " +
+                    (dbRequest.error?.name + ": " + dbRequest.error?.message)
+            );
     });
 }
 
@@ -124,7 +146,12 @@ async function groupItemsByStation(kotItems, stations) {
 }
 
 export async function printKotSmart(offlineData, branch) {
+    console.log("[QZ KOT] branch:", branch);
     if (!branch) {
+        console.warn(
+            "[QZ KOT] No branch on this POS Profile (pos_profile.custom_branch is empty) - " +
+            "falling back to the print-dialog popup for everything."
+        );
         return printKot(offlineData);
     }
 
@@ -136,16 +163,21 @@ export async function printKotSmart(offlineData, branch) {
         );
         stations = r.message || [];
     } catch (e) {
-        console.error("Could not load KDS stations for branch", branch, e);
+        console.error("[QZ KOT] Could not load KDS stations for branch", branch, e);
     }
+    console.log("[QZ KOT] configured stations for this branch:", stations);
 
     if (!stations.length) {
-        // QZ isn't configured for this branch at all - unchanged behaviour.
+        console.warn(
+            `[QZ KOT] No KDS Station for branch "${branch}" has printer_name set - ` +
+            "falling back to the print-dialog popup for everything."
+        );
         return printKot(offlineData);
     }
 
     const kotItems = offlineData?.kot_items || [];
     const { byStation, unmapped } = await groupItemsByStation(kotItems, stations);
+    console.log("[QZ KOT] items routed by station:", byStation, "unmapped:", unmapped);
     const fallbackItems = [...unmapped];
 
     for (const station of stations) {
@@ -157,13 +189,15 @@ export async function printKotSmart(offlineData, branch) {
             const html = buildKotHtml({ ...offlineData, kot_items: stationItems });
             const config = qz.configs.create(station.printer_name);
             await qz.print(config, [{ type: "html", format: "plain", data: html }]);
+            console.log(`[QZ KOT] printed silently to station ${station.name} (${station.printer_name})`);
         } catch (err) {
-            console.error(`QZ Tray print failed for station ${station.name}:`, err);
+            console.error(`[QZ KOT] QZ Tray print failed for station ${station.name}:`, err);
             fallbackItems.push(...stationItems);
         }
     }
 
     if (fallbackItems.length) {
+        console.warn("[QZ KOT] popup firing for these leftover/failed items:", fallbackItems);
         await printKot({ ...offlineData, kot_items: fallbackItems });
     }
 }
