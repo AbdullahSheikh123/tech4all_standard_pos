@@ -19,6 +19,20 @@ def validate(doc, method):
     set_patient(doc)
     auto_set_delivery_charges(doc)
     calc_delivery_charges(doc)
+    set_mode_of_payment(doc)
+
+
+def set_mode_of_payment(doc):
+    # The top-level Mode of Payment field is never filled in by the POS
+    # submission flow (only the child Payments table rows get a mode of
+    # payment), and the desk's client-side auto-fill doesn't run for
+    # invoices created via the API. Mirror that behaviour here: when there
+    # is exactly one payment row, use its mode; leave it blank for zero or
+    # multiple modes rather than guessing.
+    if not doc.is_pos:
+        return
+    if doc.payments and len(doc.payments) == 1:
+        doc.mode_of_payment = doc.payments[0].mode_of_payment
 
 
 def before_submit(doc, method):
@@ -33,16 +47,13 @@ def before_submit(doc, method):
                 doc.cost_center = pos_profile.cost_center
     if doc.is_pos:
         if doc.pos_profile:
-            # frappe.get_doc(doctype, filters) raises DoesNotExistError when
-            # nothing matches (it doesn't return None/falsy like get_list
-            # does) - look up the name safely first so a POS Profile with no
-            # linked Branch just skips this block instead of blocking every
-            # submission for that profile.
-            branch_name = frappe.db.get_value(
-                "Branch",
-                {"pos_profile": ["like", f"%{doc.pos_profile}%"]},
-                "name"
-            )
+            # Read the Branch straight off the POS Profile's own custom_branch
+            # link instead of reverse-searching Branch by a fuzzy "like" match
+            # on its pos_profile field - that match was unreliable (relied on
+            # every Branch listing every profile name in a text field) and
+            # crashed the whole submission whenever it found nothing.
+            pos_profile = frappe.get_cached_doc("POS Profile", doc.pos_profile)
+            branch_name = pos_profile.custom_branch
             if branch_name:
                 branch = frappe.get_doc("Branch", branch_name)
                 doc.custom_branch = branch.name
