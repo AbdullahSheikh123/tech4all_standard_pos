@@ -1,47 +1,48 @@
-export async function printKot(offlineData) {
-    try {
-        const items = offlineData?.kot_items || [];
+// Builds the default KOT ticket HTML for a given set of items. Shared by
+// the print-dialog popup below and by qzKotPrint.js's silent QZ Tray path,
+// so both render the exact same layout - QZ Tray printing isn't a
+// different ticket design, just a different delivery mechanism for it.
+export function buildKotHtml(offlineData) {
+    const items = offlineData?.kot_items || [];
 
-        // Group items by name
-        const groupedItems = {};
-        items.forEach(item => {
-            if (!groupedItems[item.name]) {
-                groupedItems[item.name] = {
-                    name: item.name,
-                    qty: 0,
-                    rate: item.rate || 0,
-                    bundle_items: []
-                };
-            }
-            groupedItems[item.name].qty += item.qty || 0;
-            if (item.bundle_items?.length) {
-                groupedItems[item.name].bundle_items.push(...item.bundle_items);
-            }
-        });
+    // Group items by name
+    const groupedItems = {};
+    items.forEach(item => {
+        if (!groupedItems[item.name]) {
+            groupedItems[item.name] = {
+                name: item.name,
+                qty: 0,
+                rate: item.rate || 0,
+                bundle_items: []
+            };
+        }
+        groupedItems[item.name].qty += item.qty || 0;
+        if (item.bundle_items?.length) {
+            groupedItems[item.name].bundle_items.push(...item.bundle_items);
+        }
+    });
 
-        const newWindow = window.open("", "_blank");
+    const itemRows = Object.values(groupedItems).map(item => {
+        const parentRow = `
+            <tr class="parent-row">
+                <td><strong>${item.name}</strong></td>
+                <td class="text-center"><strong>${item.qty}</strong></td>
+                <td class="text-right"><strong>Rs ${item.rate}</strong></td>
+            </tr>
+        `;
 
-        const itemRows = Object.values(groupedItems).map(item => {
-            const parentRow = `
-                <tr class="parent-row">
-                    <td><strong>${item.name}</strong></td>
-                    <td class="text-center"><strong>${item.qty}</strong></td>
-                    <td class="text-right"><strong>Rs ${item.rate}</strong></td>
-                </tr>
-            `;
+        const bundleRows = item.bundle_items.map(b => `
+            <tr class="child-row">
+                <td style="padding-left: 20px;">- ${b.name}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        `).join("");
 
-            const bundleRows = item.bundle_items.map(b => `
-                <tr class="child-row">
-                    <td style="padding-left: 20px;">- ${b.name}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            `).join("");
+        return parentRow + bundleRows;
+    }).join("");
 
-            return parentRow + bundleRows;
-        }).join("");
-
-        newWindow.document.write(`
+    return `
 <html>
 <head>
     <title>KOT-Print</title>
@@ -112,17 +113,23 @@ export async function printKot(offlineData) {
     </div>
 </body>
 </html>
-      `);
+      `;
+}
+
+export async function printKot(offlineData) {
+    try {
+        const newWindow = window.open("", "_blank");
+        newWindow.document.write(buildKotHtml(offlineData));
         newWindow.document.close();
 
       // Add event listener for after printing
       newWindow.onafterprint = () => {
         newWindow.close();
       };
-  
+
       // Open the print dialog
       newWindow.print();
-  
+
       // Fallback for browsers that don't support onafterprint
       newWindow.addEventListener("focus", () => {
         setTimeout(() => {

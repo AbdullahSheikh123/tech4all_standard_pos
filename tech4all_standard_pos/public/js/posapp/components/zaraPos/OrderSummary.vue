@@ -298,7 +298,7 @@ import {
 import eventBus from "../../bus.js";
 import indexedDBService from "../../indexedDB";
 import { printPreInvoice } from "../../preinvoice";
-import { printKot } from "../../kotPrint.js";
+import { printKotSmart } from "../../qzKotPrint.js";
 
 const items = ref([
   // {
@@ -640,6 +640,7 @@ const generateKotPrint = async () => {
 
     // Add the items data specifically for KOT
     doc.kot_items = items.value.map(item => ({
+      item_code: item.item_code,
       name: item.bundle_doc?.custom_parent_item_name || item.item_name || item.bundle_doc?.item_name,
       qty: item.qty,
       rate: item.rate,
@@ -650,7 +651,7 @@ const generateKotPrint = async () => {
     }));
 
     console.log("KOT data", doc);
-    printKot(doc);
+    printKotSmart(doc, pos_profile.value.custom_branch);
     await pushToSalesOrder(doc);
   }
 };
@@ -968,6 +969,10 @@ const get_invoice_doc = () => {
   doc.currency = doc.currency || pos_profile.value.currency;
   doc.naming_series = doc.naming_series || pos_profile.value.naming_series;
   doc.customer = pos_profile.value.customer;
+  // Sent through to create/update_sales_order_from_pos (KOT Print's push to
+  // Sales Order) so it doesn't need its own server-side POS Profile lookup -
+  // this is already the same cached copy the rest of the cart is built from.
+  doc.warehouse = doc.warehouse || pos_profile.value.warehouse;
   doc.items = invoiceItems.value;
   doc.total = netTotal.value;
   doc.discount_amount = 0;

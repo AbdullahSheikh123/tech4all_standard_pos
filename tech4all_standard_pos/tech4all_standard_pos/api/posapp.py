@@ -332,6 +332,20 @@ def get_items(
                         fields=["item"],
                     )
                 }
+
+            # KDS Station mapping per item (Item.kds_ child table), bulk-fetched
+            # once here rather than per item - needed offline so KOT printing
+            # can route each item to its own kitchen station printer instead
+            # of always falling back to the print-dialog popup.
+            kds_by_item = {}
+            for row in frappe.get_all(
+                "KDS Station Child",
+                filters={"parent": ["in", items]},
+                fields=["parent", "kds_station"],
+            ):
+                kds_by_item.setdefault(row.parent, []).append(
+                    {"kds_station": row.kds_station}
+                )
             def get_applicable_item_prices(item_codes):
                 prices = frappe.get_all(
                     "Item Price",
@@ -487,6 +501,7 @@ def get_items(
                             "attributes": attributes or "",
                             "item_attributes": item_attributes or "",
                             "has_add_ons": item_code in add_on_items,
+                            "kds_": kds_by_item.get(item_code, []),
                             # "variants": variants or [],
                             # "add_ons": item_add_on_doc or []
                         }
@@ -2413,7 +2428,7 @@ def search_orders(company, currency, pos_profile=None, order_name=None):
     return data
 
 
-def _set_sales_order_items_from_pos(so, items):
+def _set_sales_order_items_from_pos(so, items, warehouse=None):
     so.set("items", [])
     delivery_date = so.delivery_date or nowdate()
     for item in items or []:
@@ -2425,6 +2440,12 @@ def _set_sales_order_items_from_pos(so, items):
                 "qty": item.get("qty"),
                 "rate": item.get("rate"),
                 "delivery_date": delivery_date,
+                # Stock items fail Sales Order validation without this
+                # (erpnext.selling.doctype.sales_order.sales_order.validate_warehouse:
+                # "Source warehouse required for stock item ..."). POS Profile's
+                # warehouse is authoritative; item/cart-level values are only a
+                # fallback for the rare case the profile itself has none set.
+                "warehouse": warehouse or item.get("warehouse"),
             },
         )
 
@@ -2448,7 +2469,15 @@ def create_sales_order_from_pos(data):
     so.delivery_date = nowdate()
     so.order_type = "Sales"
 
-    _set_sales_order_items_from_pos(so, data.get("items"))
+    # data.warehouse is the POS Profile's warehouse as already cached
+    # client-side (get_invoice_doc() in OrderSummary.vue) - trusted first so
+    # this doesn't need its own server round trip on every call. Only falls
+    # back to a fresh lookup for a client still on an older cached bundle
+    # that isn't sending it yet.
+    warehouse = data.get("warehouse") or frappe.get_cached_value(
+        "POS Profile", data.get("pos_profile"), "warehouse"
+    )
+    _set_sales_order_items_from_pos(so, data.get("items"), warehouse)
 
     so.flags.ignore_permissions = True
     so.set_missing_values()
@@ -2469,7 +2498,15 @@ def update_sales_order_from_pos(name, data):
             _("Sales Order {0} is already submitted and can no longer be edited from KOT Print.").format(name)
         )
 
-    _set_sales_order_items_from_pos(so, data.get("items"))
+    # data.warehouse is the POS Profile's warehouse as already cached
+    # client-side (get_invoice_doc() in OrderSummary.vue) - trusted first so
+    # this doesn't need its own server round trip on every call. Only falls
+    # back to a fresh lookup for a client still on an older cached bundle
+    # that isn't sending it yet.
+    warehouse = data.get("warehouse") or frappe.get_cached_value(
+        "POS Profile", data.get("pos_profile"), "warehouse"
+    )
+    _set_sales_order_items_from_pos(so, data.get("items"), warehouse)
 
     so.flags.ignore_permissions = True
     so.set_missing_values()
