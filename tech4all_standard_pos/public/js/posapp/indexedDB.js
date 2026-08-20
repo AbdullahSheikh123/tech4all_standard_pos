@@ -1,5 +1,9 @@
 const DB_NAME = 'OfflineDB';
-const DB_VERSION = 1;
+// Bumped 1 -> 2 to add the 'create_sales_order' store (KOT Print offline queue).
+// onupgradeneeded re-runs for existing browsers on this version bump and each
+// store is created only `if (!db.objectStoreNames.contains(...))`, so existing
+// stores/data are left untouched.
+const DB_VERSION = 2;
 let db;
 
 const indexedDBService = {
@@ -48,6 +52,10 @@ const indexedDBService = {
         }
         if (!db.objectStoreNames.contains("create_invoice")) {
           const objectStore = db.createObjectStore("create_invoice", { keyPath: 'id', autoIncrement: true });
+          objectStore.createIndex('synced', 'synced', { unique: false });
+        }
+        if (!db.objectStoreNames.contains("create_sales_order")) {
+          const objectStore = db.createObjectStore("create_sales_order", { keyPath: 'id', autoIncrement: true });
           objectStore.createIndex('synced', 'synced', { unique: false });
         }
       };
@@ -624,13 +632,148 @@ clearCreateInvoice() {
       // Return the updated record ID after the successful transaction
       console.log('Transaction to update invoice completed successfully');
       return id;
-      
+
     } catch (error) {
       console.error('Error updating invoice:', error);
       throw error; // Re-throw the error for further handling
     }
-  }
-  
+  },
+
+  /*
+    Returns all queued Sales Invoice records (synced and unsynced) from the
+    create_invoice store - used by the Sale Orders screen to detect "Paid"
+    orders whose invoice hasn't synced yet (see OrderHistory.vue).
+  */
+  getSalesInvoiceQueue() {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['create_invoice'], 'readonly');
+      const store = transaction.objectStore('create_invoice');
+      const request = store.getAll();
+
+      request.onsuccess = () => resolve(request.result || []);
+      request.onerror = (event) => reject(event.target.errorCode);
+    });
+  },
+
+  /*
+    This function queues a Sales Order create/update (from KOT Print while
+    offline) in indexedDB, mirroring saveSalesInvoice() for Sales Invoice.
+
+    PARAMS:
+      mode - 'create' or 'update'
+      so_name - existing Sales Order name when mode is 'update', else null
+      data - the cart payload (customer/company/currency/items)
+    Returns: Promise<number> - the local queue record id
+  */
+  saveSalesOrderQueue(mode, so_name, data) {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['create_sales_order'], 'readwrite');
+      const store = transaction.objectStore('create_sales_order');
+
+      const record = {
+        mode,
+        so_name: so_name || null,
+        data,
+        synced: false,
+        timestamp: new Date().toISOString(),
+      };
+
+      const request = store.put(record);
+
+      request.onsuccess = (event) => {
+        const recordId = event.target.result;
+        console.log('Sales order queued in IndexedDB, Record ID:', recordId);
+        resolve(recordId);
+      };
+
+      request.onerror = (event) => {
+        console.error('Error queuing sales order:', event.target.errorCode);
+        reject('Error queuing sales order: ' + event.target.errorCode);
+      };
+    });
+  },
+
+  /*
+    Updates an existing queued Sales Order record in indexedDB by its local
+    queue id - used when the same offline ticket is reprinted/edited again
+    before it has synced, so it doesn't create duplicate queue entries.
+  */
+  updateSalesOrderQueue(id, data) {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['create_sales_order'], 'readwrite');
+      const store = transaction.objectStore('create_sales_order');
+      const getRequest = store.get(id);
+
+      getRequest.onsuccess = () => {
+        const record = getRequest.result;
+        if (!record) {
+          reject('Queued sales order not found for id: ' + id);
+          return;
+        }
+        record.data = data;
+        record.synced = false;
+
+        const putRequest = store.put(record);
+        putRequest.onsuccess = () => resolve(id);
+        putRequest.onerror = (event) =>
+          reject('Error updating queued sales order: ' + event.target.errorCode);
+      };
+
+      getRequest.onerror = (event) =>
+        reject('Error fetching queued sales order: ' + event.target.errorCode);
+    });
+  },
+
+  /*
+    Returns all queued Sales Order records (both synced and unsynced) so the
+    Sale Orders screen can show locally-created tickets alongside server ones
+    while offline, and mark them Pending/Synced.
+  */
+  getSalesOrderQueue() {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['create_sales_order'], 'readonly');
+      const store = transaction.objectStore('create_sales_order');
+      const request = store.getAll();
+
+      request.onsuccess = () => resolve(request.result || []);
+      request.onerror = (event) => reject(event.target.errorCode);
+    });
+  },
+
+  /*
+    Marks a queued Sales Order record as synced once the background sync in
+    ProductList.vue has successfully pushed it to the server. so_name is the
+    real Sales Order name returned by the server, recorded so any further
+    offline edits to this ticket queue as an 'update' against the real name.
+  */
+  markSalesOrderQueueSynced(id, so_name) {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['create_sales_order'], 'readwrite');
+      const store = transaction.objectStore('create_sales_order');
+      const getRequest = store.get(id);
+
+      getRequest.onsuccess = () => {
+        const record = getRequest.result;
+        if (!record) {
+          reject('Queued sales order not found for id: ' + id);
+          return;
+        }
+        record.synced = true;
+        if (so_name) {
+          record.so_name = so_name;
+        }
+
+        const putRequest = store.put(record);
+        putRequest.onsuccess = () => resolve(id);
+        putRequest.onerror = (event) =>
+          reject('Error marking queued sales order synced: ' + event.target.errorCode);
+      };
+
+      getRequest.onerror = (event) =>
+        reject('Error fetching queued sales order: ' + event.target.errorCode);
+    });
+  },
+
 };
 
 export default indexedDBService;

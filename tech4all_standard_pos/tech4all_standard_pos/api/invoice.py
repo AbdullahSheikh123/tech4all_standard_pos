@@ -101,11 +101,32 @@ def before_submit(doc, method):
 
     add_loyalty_point(doc)
     create_sales_order(doc)
+    close_linked_sales_order(doc)
     update_coupon(doc, "used")
 
 
 def before_cancel(doc, method):
     update_coupon(doc, "cancelled")
+
+
+def close_linked_sales_order(doc):
+    """If this invoice was checked out from a POS-created Sales Order (the KOT
+    Print flow - see posapp.create_sales_order_from_pos), that Sales Order is
+    still a draft so it could be edited up to now. Submit it and mark it
+    Completed here, at final payment, so it drops off the open Sale Orders
+    screen once it's been paid.
+    """
+    if not doc.sales_order:
+        return
+
+    sales_order = frappe.get_doc("Sales Order", doc.sales_order)
+
+    if sales_order.docstatus == 0:
+        sales_order.flags.ignore_permissions = True
+        sales_order.submit()
+
+    if sales_order.docstatus == 1 and sales_order.status != "Completed":
+        sales_order.db_set("status", "Completed", update_modified=False)
 
 
 def add_loyalty_point(invoice_doc):

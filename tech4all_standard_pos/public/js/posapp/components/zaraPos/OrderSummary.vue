@@ -197,9 +197,12 @@
           <v-row class="mt-3 px-6 pb-1">
             <v-col cols="12">
               <v-btn block class="white--text font-weight-bold payment-button" height="48" color="#21A0A0"
-                @click="goForPayment" :loading="loadingBtn" :disabled="pandaGoOrder">
+                @click="goForPayment" :loading="loadingBtn" :disabled="pandaGoOrder || isSalesOrderSyncPending">
                 <p class="mt-2 payment-p">PAYMENT</p>
               </v-btn>
+              <p v-if="isSalesOrderSyncPending" class="text-caption text-center mt-1" style="color: #b7791f">
+                This order hasn't synced yet - please wait until you're back online.
+              </p>
             </v-col>
           </v-row>
           <v-row class="mt-3 px-6 pb-1">
@@ -374,6 +377,18 @@ const screen = ref(0);
 const speedMbps = ref(null); // Measured internet speed in Mbps
 const getSpeedRes = ref(false);
 const pandaGoOrder = ref(false);
+// Blocks checkout while this cart is a KOT-Print order that was created/edited
+// offline and hasn't synced to a real Sales Order yet (see pushToSalesOrder /
+// ProductList.vue::syncSalesOrdersFromIndexedDB). Prevents an invoice from
+// being settled with nothing to link to, and the queued create from landing
+// later as an orphaned Sales Order.
+const isSalesOrderSyncPending = computed(() => {
+  return !!(
+    saleOrderPayload.value &&
+    saleOrderPayload.value._queueId &&
+    !saleOrderPayload.value.name
+  );
+});
 const holdOrderId = ref(null);
 const saleOrderBtns = ref(false);
 const saleOrderPayload = ref("");
@@ -636,7 +651,7 @@ const generateKotPrint = async () => {
 
     console.log("KOT data", doc);
     printKot(doc);
-    holdOrder();
+    await pushToSalesOrder(doc);
   }
 };
 
@@ -723,6 +738,86 @@ const holdOrder = () => {
   }
 };
 
+// KOT Print no longer goes into Hold Orders (that list is reserved for the
+// explicit Hold button). Instead it creates/updates a draft Sales Order so
+// the ticket shows up on the Sale Orders screen. The Sales Order stays a
+// draft - editable via reprints - until final checkout submits it (see
+// invoice.py::close_linked_sales_order).
+//
+// Works the same whether online or offline: online writes straight to the
+// Sales Order doctype; offline queues the same payload in IndexedDB
+// (create_sales_order store) and ProductList.vue's background sync pushes it
+// once connectivity returns - mirrors how Sales Invoice offline queuing works.
+const pushToSalesOrder = async (doc) => {
+  loadingHold.value = true; // Start loading indicator
+  const isOffline = !navigator.onLine || offlineMode.value;
+
+  try {
+    if (isOffline) {
+      await indexedDBService.openDatabase();
+
+      if (saleOrderPayload.value && saleOrderPayload.value._queueId) {
+        // Same not-yet-synced offline ticket reprinted - update the queued record in place
+        await indexedDBService.updateSalesOrderQueue(
+          saleOrderPayload.value._queueId,
+          doc
+        );
+      } else if (saleOrderPayload.value && saleOrderPayload.value.name) {
+        // Editing an already-synced Sales Order while offline - queue an update against it
+        await indexedDBService.saveSalesOrderQueue(
+          "update",
+          saleOrderPayload.value.name,
+          doc
+        );
+      } else {
+        const queueId = await indexedDBService.saveSalesOrderQueue(
+          "create",
+          null,
+          doc
+        );
+        saleOrderPayload.value = {
+          _queueId: queueId,
+          _syncStatus: "Pending",
+          name: null,
+          items: doc.items,
+          grand_total: doc.grand_total,
+          customer: doc.customer,
+        };
+      }
+    } else if (saleOrderPayload.value && saleOrderPayload.value.name) {
+      // Same ticket printed again (items were added/removed) - update it in place
+      await frappe.call({
+        method:
+          "tech4all_standard_pos.tech4all_standard_pos.api.posapp.update_sales_order_from_pos",
+        args: { name: saleOrderPayload.value.name, data: doc },
+      });
+    } else {
+      const response = await frappe.call({
+        method:
+          "tech4all_standard_pos.tech4all_standard_pos.api.posapp.create_sales_order_from_pos",
+        args: { data: doc },
+      });
+      if (response && response.message) {
+        saleOrderPayload.value = response.message;
+      }
+    }
+  } catch (error) {
+    console.error("Error saving Sales Order from KOT print:", error);
+    eventBus.emit("show_mesage", {
+      text: "Failed to save order",
+      color: "error",
+    });
+    loadingHold.value = false;
+    return;
+  }
+
+  // Clear the current order for a new one, same as Hold does today
+  items.value = [];
+  loadingHold.value = false; // Stop loading indicator
+  eventBus.emit("open-product-menu");
+  eventBus.emit("set-default-value");
+};
+
 const processSaleOrder = async () => {
   try {
     dispathLoading.value = true
@@ -764,6 +859,16 @@ const defaultSaleOrderValue = () => {
 const goForPayment = async () => {
   // eventBus.emit("go-for-payment");
   if (items.value.length > 0) {
+    if (isSalesOrderSyncPending.value) {
+      // Guards the Enter-key path too - the button itself is already
+      // disabled for this case (see isSalesOrderSyncPending).
+      eventBus.emit("show_mesage", {
+        text: "This order hasn't synced yet. Please wait until you're back online before settling the bill.",
+        color: "error",
+      });
+      return;
+    }
+
     if (saleOrder.value) {
       const invoice_doc = await processInvoiceFromOrder();
       invoice_doc.value = invoice_doc;
@@ -1352,6 +1457,22 @@ onMounted(() => {
     items.value = order.items;
     invoiceItems.value = order.items;
     // makePayloadForSalesOrder();
+  });
+
+  // Fired by ProductList.vue once a queued Sales Order (KOT Print made
+  // offline) reaches the server. If it's the order currently open in this
+  // cart, fill in the real name so the Payment button unlocks right away
+  // instead of waiting for the cashier to reopen it from Sale Orders.
+  eventBus.on("sales-order-synced", (synced) => {
+    if (
+      saleOrderPayload.value &&
+      saleOrderPayload.value._queueId === synced.queueId
+    ) {
+      saleOrderPayload.value = {
+        ...saleOrderPayload.value,
+        name: synced.name,
+      };
+    }
   });
 });
 onUnmounted(() => {

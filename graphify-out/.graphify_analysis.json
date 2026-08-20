@@ -1,0 +1,1503 @@
+{
+  "communities": {
+    "0": [
+      "any",
+      "memoryview",
+      "tech4all_standard_pos_json_compat_dumps",
+      "tech4all_standard_pos_json_compat_loads",
+      "tech4all_standard_pos_json_compat_rationale_14",
+      "tech4all_standard_pos_json_compat_rationale_19",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_add_taxes_from_tax_template",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_auto_create_items",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_build_item_cache",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_check_opening_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_create_bundle_from_item",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_create_customer",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_create_customer_with_address",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_create_opening_voucher",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_create_payment_request",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_create_sales_invoice_from_order",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_delete_invoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_delete_sales_invoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_active_gift_coupons",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_all_table_names",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_amount",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_app_branch",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_applicable_delivery_charges",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_available_credit",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_child_nodes",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_customer_addresses",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_customer_by_mobile",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_customer_group_condition",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_customer_groups",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_customer_info",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_customer_names",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_draft_invoices",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_draft_invoices_by_ordertype",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_existing_payment_request",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_invoice_by_table",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_item_attributes",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_item_detail",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_item_group_condition",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_item_optional_attributes",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_item_with_rate",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_items",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_items_details",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_items_from_barcode",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_items_groups",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_new_payment_request",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_offers",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_opening_dialog_data",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_order_type",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_payment_gateway_account",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_pos_coupon",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_price_list",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_root_of",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_sales_invoice_child_table",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_sales_person_names",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_seearch_items_conditions",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_stock_availability",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_table_names",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_variant_with_rate",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_variants_addons",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_version",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_make_address",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_make_payment_request",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_py_whitelist",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_rationale_1449",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_rationale_2415",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_rationale_2430",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_rationale_2834",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_rationale_527",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_redeeming_customer_credit",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_sales_invoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_search_invoices_for_return",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_search_orders",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_search_serial_or_batch_or_barcode_number",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_set_batch_nos_for_bundels",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_set_customer_info",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_submit_in_background_job",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_submit_invoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_update_invoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_update_invoice_from_order",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_update_opening_shift_data"
+    ],
+    "1": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_addnewcustomer",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_changepaymentmode",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_checkinternetspeed",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_createsaleorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_customerloading",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_customers",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_customfilter",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_dispathloading",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_formdata",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_getspeedres",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_grandtotal",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_grandtotalcard",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_gstamount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_gstamountcard",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_holdorderid",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_invoice_doc",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_invoiceitems",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_isformvalid",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_items",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_loadingbtn",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_loadinghold",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_makepayloadforsalesorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_nettotal",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_nettotalcard",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_offlinemode",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_offlineprofiledata",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_opendialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_pandagoorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_paymentmodes",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_pos_opening_shift",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_punching",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_rules",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_saleorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_saleorderbtns",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_saleorderdetail",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_saleorderpayload",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_screen",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_selectedcustomer",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_selectedordertype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_selectedpaymentmode",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_showdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_speedmbps",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_tableno",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_toggledelete",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_totalitems",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_totalquantity",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_update_invoice"
+    ],
+    "2": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_addonpanel",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_addvariantitem",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_bundlearray",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_calledbundleapi",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_categories",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_checkinternetconnection",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_currentstep",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_defaultimg",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_filteredproducts",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_formatnumber",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_getallitems",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_getinvoicelog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_intervalid",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_isonline",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_isstepcomplete",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_itemloading",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_loadallitems",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_offlinemode",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_offlineprofiledata",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_onlyaddon",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_ordertype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_panel",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_parentitem",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_payload_string",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_prevstep",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_products",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_requestcomplete",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_searchvalue",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_selectedaddons",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_selectedcategory",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_selectedvalues",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_selectedvariants",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_skipstep",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_toggleaddon",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_unsyncinvoice",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_updateinvoice",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_variantaddoncache",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_variantmatch",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_variantpayload",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_variantradio",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_variantsdialog"
+    ],
+    "3": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_activefield",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_amounttake",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_amounttakefield",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_availablediscounts",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_backtoproductmenu",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_btnloading",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_btnloading1",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_cancelorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_changeamount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_confirmsplit",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_discount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_discountdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_discountfield",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_fbrresponse",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_formatdisplayamount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_handlenumpadclick",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_invoice_doc",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_newtax",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_numpad",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_offlinemode",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_offlineprofiledata",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_opendiscountdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_opensplitpaymentdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_orderid",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_paymentmodes",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_paymenttype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_punching",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_requiredorderid",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_selectdiscount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_selectedordertype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_set_full_amount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_showdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_splitpayment",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_submitsplitpayment",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_taxrate",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_totalpaidamount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_updatedocpayment",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_validatediscount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_validateinput"
+    ],
+    "4": [
+      "tech4all_standard_pos_json_compat",
+      "tech4all_standard_pos_json_compat_rationale_1",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_confirmation",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_get_mpesa_draft_payments",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_get_mpesa_mode_of_payment",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_get_token",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_py_whitelist",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_submit_mpesa_payment",
+      "tech4all_standard_pos_tech4all_standard_pos_api_m_pesa_validation",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_create_payment_entry",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_get_available_pos_profiles",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_get_bank_cash_account",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_get_outstanding_invoices",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_get_unallocated_payments",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_process_pos_payment",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_py_whitelist",
+      "tech4all_standard_pos_tech4all_standard_pos_api_payment_entry_set_paid_amount_and_received_amount",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url_mpesac2bregisterurl",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url_mpesac2bregisterurl_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url_py_tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_py_tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_posbranchdepository",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_posbranchdepository_create_payment_entry",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_posbranchdepository_on_submit",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_posbranchdepository_set_mode_of_payment",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_posbranchdepository_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository"
+    ],
+    "5": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_add_loyalty_point",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_auto_set_delivery_charges",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_before_cancel",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_before_submit",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_calc_delivery_charges",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_create_sales_order",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_make_sales_order",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_py_tech4all_standard_pos_tech4all_standard_pos_api_invoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_set_patient",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_update_coupon",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_validate_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_company_domain",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_deliverycharges",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_deliverycharges_set_profiles_list",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_deliverycharges_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_deliverycharges_validate_profiles",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_get_applicable_delivery_charges",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_py_tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_check_coupon_code",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_poscoupon",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_poscoupon_autoname",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_poscoupon_create_coupon_from_referral",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_poscoupon_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_update_coupon_code_count",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_validate_coupon_code"
+    ],
+    "6": [
+      "eslint",
+      "eslint_config_standard",
+      "eslint_plugin_import",
+      "eslint_plugin_n",
+      "eslint_plugin_node",
+      "eslint_plugin_promise",
+      "eslint_plugin_vue",
+      "sass",
+      "unplugin_fonts",
+      "unplugin_vue_components",
+      "unplugin_vue_router",
+      "vite",
+      "vite_plugin_vuetify",
+      "vitejs_plugin_vue",
+      "vuetify_project_package_devdependencies",
+      "vuetify_project_package_devdependencies_eslint",
+      "vuetify_project_package_devdependencies_eslint_config_standard",
+      "vuetify_project_package_devdependencies_eslint_plugin_import",
+      "vuetify_project_package_devdependencies_eslint_plugin_n",
+      "vuetify_project_package_devdependencies_eslint_plugin_node",
+      "vuetify_project_package_devdependencies_eslint_plugin_promise",
+      "vuetify_project_package_devdependencies_eslint_plugin_vue",
+      "vuetify_project_package_devdependencies_sass",
+      "vuetify_project_package_devdependencies_unplugin_fonts",
+      "vuetify_project_package_devdependencies_unplugin_vue_components",
+      "vuetify_project_package_devdependencies_unplugin_vue_router",
+      "vuetify_project_package_devdependencies_vite",
+      "vuetify_project_package_devdependencies_vite_plugin_vuetify",
+      "vuetify_project_package_devdependencies_vitejs_plugin_vue"
+    ],
+    "7": [
+      "patch",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_get_cashiers",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_get_payments_entries",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_make_closing_shift_from_opening",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_delete_draft_invoices",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_get_payment_reconciliation_details",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_on_submit",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_post_difference_entry",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_update_payment_reconciliation",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift_validate_difference",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_get_pos_invoices",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_py_whitelist",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_submit_closing_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_submit_printed_invoices",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_test_pos_closing_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_test_pos_closing_shift_testposclosingshift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_test_pos_closing_shift_testposclosingshift_test_get_cashiers_returns_link_query_rows"
+    ],
+    "8": [
+      "core_js",
+      "lodash",
+      "mdi_font",
+      "mitt",
+      "package",
+      "package_dependencies",
+      "package_dependencies_lodash",
+      "package_dependencies_mitt",
+      "package_dependencies_qrcode",
+      "package_dependencies_quasar",
+      "package_dependencies_vue",
+      "package_dependencies_vue_router",
+      "package_dependencies_vuetify",
+      "package_dependencies_vuex",
+      "package_json_vue",
+      "package_json_vue_router",
+      "package_json_vuetify",
+      "qrcode",
+      "quasar",
+      "roboto_fontface",
+      "vuetify_project_package",
+      "vuetify_project_package_dependencies",
+      "vuetify_project_package_dependencies_core_js",
+      "vuetify_project_package_dependencies_mdi_font",
+      "vuetify_project_package_dependencies_roboto_fontface",
+      "vuetify_project_package_dependencies_vue",
+      "vuetify_project_package_dependencies_vuetify",
+      "vuetify_project_package_devdependencies_vue_router",
+      "vuetify_project_package_json_vue",
+      "vuetify_project_package_name",
+      "vuetify_project_package_scripts",
+      "vuetify_project_package_scripts_build",
+      "vuetify_project_package_scripts_dev",
+      "vuetify_project_package_scripts_lint",
+      "vuetify_project_package_scripts_preview",
+      "vuetify_project_package_version",
+      "vuex"
+    ],
+    "9": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_add_pos_payment_to_payments",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_add_to_payments",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_add_to_pos_payments",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_add_to_pos_transaction",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_add_to_taxes",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_get_pos_payments",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_get_value",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_get_pos_invoices",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_pos_opening_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_refresh_fields",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_reset_values",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_set_form_data",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_set_form_payments_data",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_set_html_data",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_set_opening_amounts"
+    ],
+    "10": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_changeordertype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_currentscreen",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_debounce",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_emitsearchevent",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_fetchordertypes",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_fetchtableoptions",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_go_desk",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_offlineprofiledata",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_ordertypes",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_searchvalue",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_selectedordertype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_selectedtable",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_tablearray"
+    ],
+    "11": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_check_opening_entry",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_coupons",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_create_opening_voucher",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_dialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_get_closing_data",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_get_offers",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_get_pos_setting",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_offers",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_onenterkey",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_payment",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_pos_opening_shift",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_screen",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_home_submit_closing_pos"
+    ],
+    "12": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_closedialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_closeshift",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_closingdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_confirmdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_dialog_data",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_flt_formtcurrency_formtfloat_setformatedcurrency_setformatedfloat_currencysymbol_isnumber",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_headers",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_itemsperpage",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_loadingbtn",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_max25chars",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posclosingdialog_submitdialog",
+      "tech4all_standard_pos_public_js_posapp_currencyformat",
+      "tech4all_standard_pos_public_js_posapp_currencyformat_useformat"
+    ],
+    "13": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_status_updater",
+      "tech4all_standard_pos_tech4all_standard_pos_api_status_updater_overallowanceerror",
+      "tech4all_standard_pos_tech4all_standard_pos_api_status_updater_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_api_status_updater_statusupdater",
+      "tech4all_standard_pos_tech4all_standard_pos_api_status_updater_statusupdater_set_status",
+      "tech4all_standard_pos_tech4all_standard_pos_api_status_updater_validate_status",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_add_opening_cash",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_change_status_to_open",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_check_opening_cash",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_posopeningshift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_posopeningshift_on_submit",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_posopeningshift_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_posopeningshift_validate_pos_profile_and_cashier",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_py_whitelist"
+    ],
+    "14": [
+      "materialrequest",
+      "tech4all_standard_pos_overrides_material_request_override",
+      "tech4all_standard_pos_overrides_material_request_override_get_branch_stock_and_rate",
+      "tech4all_standard_pos_overrides_material_request_override_make_in_transit_stock_entry",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride_get_branch_details",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride_get_branch_requisition_template",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride_load_branch_requisition_template",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride_set_requisition_type",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride_validate",
+      "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride_validate_items",
+      "tech4all_standard_pos_overrides_material_request_override_py_whitelist",
+      "tech4all_standard_pos_overrides_material_request_override_receive_in_transit_stock_entry",
+      "tech4all_standard_pos_overrides_material_request_override_receive_purchase_order"
+    ],
+    "15": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_esnext",
+      "ref_scripthost",
+      "vuetify_project_jsconfig",
+      "vuetify_project_jsconfig_compileroptions",
+      "vuetify_project_jsconfig_compileroptions_allowjs",
+      "vuetify_project_jsconfig_compileroptions_baseurl",
+      "vuetify_project_jsconfig_compileroptions_lib",
+      "vuetify_project_jsconfig_compileroptions_module",
+      "vuetify_project_jsconfig_compileroptions_moduleresolution",
+      "vuetify_project_jsconfig_compileroptions_paths",
+      "vuetify_project_jsconfig_compileroptions_target"
+    ],
+    "16": [
+      "tech4all_standard_pos_overrides_purchase_reciept_override",
+      "tech4all_standard_pos_overrides_purchase_reciept_override_get_invoiced_qty_map",
+      "tech4all_standard_pos_overrides_purchase_reciept_override_get_returned_qty_map",
+      "tech4all_standard_pos_overrides_purchase_reciept_override_make_purchase_invoice",
+      "tech4all_standard_pos_overrides_purchase_reciept_override_py_whitelist",
+      "tech4all_standard_pos_overrides_purchase_reciept_override_rationale_104",
+      "tech4all_standard_pos_overrides_purchase_reciept_override_rationale_122",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_mpesapaymentregister",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_mpesapaymentregister_before_insert",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_mpesapaymentregister_before_submit",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_mpesapaymentregister_create_payment_entry",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_mpesapaymentregister_set_missing_values",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_py_document"
+    ],
+    "18": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_customer",
+      "tech4all_standard_pos_tech4all_standard_pos_api_customer_after_insert",
+      "tech4all_standard_pos_tech4all_standard_pos_api_customer_create_customer_referral_code",
+      "tech4all_standard_pos_tech4all_standard_pos_api_customer_create_gift_coupon",
+      "tech4all_standard_pos_tech4all_standard_pos_api_customer_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_api_customer_validate_referral_code",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_create_referral_code",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_py_tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_referralcode",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_referralcode_autoname",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_referralcode_validate"
+    ],
+    "19": [
+      "tech4all_standard_pos_public_js_posapp_components_navbar1_setup",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_header_logout",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_getholdorders",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_changecategory",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_fetchunsyncedsalesinvoicerecords",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_get_items",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_handleoffline",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_handleonline",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_markrecordassynced",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_syncsalesinvoicerecord",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_syncsalesinvoicesfromindexeddb"
+    ],
+    "20": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen_grandtotal",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen_gstamount",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen_invoicedoc",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen_items",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen_nettotal",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customerscreen_screen",
+      "tech4all_standard_pos_public_js_posapp_customer_screen",
+      "tech4all_standard_pos_public_js_posapp_customer_screen_constructor",
+      "tech4all_standard_pos_public_js_posapp_customer_screen_make_body",
+      "tech4all_standard_pos_public_js_posapp_customer_screen_setup_header"
+    ],
+    "21": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_get_default_bom_for_finished",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_on_submit",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_submit_stock_entry",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_validate_bom",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_validate_item",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing_validate_item_qty",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_create_automated_bom_manufacturing",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_py_tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing"
+    ],
+    "22": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_createpreinvoice",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_generatekotprint",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_get_invoice_doc",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_get_payments",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_getcurrentdate",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_holdorder",
+      "tech4all_standard_pos_public_js_posapp_kotprint",
+      "tech4all_standard_pos_public_js_posapp_kotprint_printkot",
+      "tech4all_standard_pos_public_js_posapp_preinvoice",
+      "tech4all_standard_pos_public_js_posapp_preinvoice_printpreinvoice"
+    ],
+    "23": [
+      "tech4all_standard_pos_public_js_posapp_format",
+      "tech4all_standard_pos_public_js_posapp_format_currencysymbol",
+      "tech4all_standard_pos_public_js_posapp_format_data",
+      "tech4all_standard_pos_public_js_posapp_format_flt",
+      "tech4all_standard_pos_public_js_posapp_format_formtcurrency",
+      "tech4all_standard_pos_public_js_posapp_format_formtfloat",
+      "tech4all_standard_pos_public_js_posapp_format_isnumber",
+      "tech4all_standard_pos_public_js_posapp_format_mounted",
+      "tech4all_standard_pos_public_js_posapp_format_setformatedcurrency",
+      "tech4all_standard_pos_public_js_posapp_format_setformatedfloat"
+    ],
+    "24": [
+      "tech4all_standard_pos_public_js_posapp_home",
+      "tech4all_standard_pos_public_js_posapp_home_beforedestroy",
+      "tech4all_standard_pos_public_js_posapp_home_checkidletime",
+      "tech4all_standard_pos_public_js_posapp_home_mounted",
+      "tech4all_standard_pos_public_js_posapp_home_remove_tech4all_nav",
+      "tech4all_standard_pos_public_js_posapp_home_setpage",
+      "tech4all_standard_pos_public_js_posapp_home_setupeventlisteners",
+      "tech4all_standard_pos_public_js_posapp_home_startcheckinterval",
+      "tech4all_standard_pos_public_js_posapp_home_updated",
+      "tech4all_standard_pos_public_js_posapp_home_updatelastactivity"
+    ],
+    "25": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_additem",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_deleteitem",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_formatdeliverydate",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_get_draft_orders",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_orders",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_selectedorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_holdorders_showorderdetail"
+    ],
+    "26": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_formatdeliverydate",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_get_draft_orders",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_itemloading",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_orders",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_pos_profile",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_selectedorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_showorderdetail"
+    ],
+    "27": [
+      "tech4all_standard_pos_public_js_posapp_printing",
+      "tech4all_standard_pos_public_js_posapp_printing_fetchinvoicedata",
+      "tech4all_standard_pos_public_js_posapp_printing_fetchitems",
+      "tech4all_standard_pos_public_js_posapp_printing_fetchposopeningshift",
+      "tech4all_standard_pos_public_js_posapp_printing_fetchposprofile",
+      "tech4all_standard_pos_public_js_posapp_printing_fetchpossetting",
+      "tech4all_standard_pos_public_js_posapp_printing_fetchuserdata",
+      "tech4all_standard_pos_public_js_posapp_printing_getallitems"
+    ],
+    "29": [
+      "vuetify_project_src_app",
+      "vuetify_project_src_main",
+      "vuetify_project_src_main_app",
+      "vuetify_project_src_plugins_index",
+      "vuetify_project_src_plugins_index_registerplugins",
+      "vuetify_project_src_plugins_vuetify",
+      "vuetify_project_src_router_index",
+      "vuetify_project_src_router_index_router"
+    ],
+    "30": [
+      "calculate_taxes_and_totals",
+      "salesinvoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_taxes",
+      "tech4all_standard_pos_tech4all_standard_pos_api_taxes_custom_calculate_taxes_and_totals",
+      "tech4all_standard_pos_tech4all_standard_pos_api_taxes_custom_calculate_taxes_and_totals_get_tax_rate",
+      "tech4all_standard_pos_tech4all_standard_pos_api_taxes_customsalesinvoice",
+      "tech4all_standard_pos_tech4all_standard_pos_api_taxes_customsalesinvoice_calculate_taxes_and_totals"
+    ],
+    "31": [
+      "tech4all_standard_pos_public_js_posapp_app",
+      "tech4all_standard_pos_public_js_posapp_app_setup",
+      "tech4all_standard_pos_public_js_posapp_bus",
+      "tech4all_standard_pos_public_js_posapp_bus_eventbus",
+      "tech4all_standard_pos_public_js_posapp_components_navbar1",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productdialog_setup"
+    ],
+    "32": [
+      "tech4all_standard_pos_public_js_posapp_tax_integration",
+      "tech4all_standard_pos_public_js_posapp_tax_integration_fetchdocument",
+      "tech4all_standard_pos_public_js_posapp_tax_integration_fetchqrdata",
+      "tech4all_standard_pos_public_js_posapp_tax_integration_get_fbr_invoice_id",
+      "tech4all_standard_pos_public_js_posapp_tax_integration_get_items_list_for_fbr",
+      "tech4all_standard_pos_public_js_posapp_tax_integration_get_order_data_for_fbr",
+      "tech4all_standard_pos_public_js_posapp_tax_integration_sync_fbr"
+    ],
+    "33": [
+      "tech4all_standard_pos_custom_stock_entry_tech4all_pos",
+      "tech4all_standard_pos_custom_stock_entry_tech4all_pos_before_validate",
+      "tech4all_standard_pos_custom_stock_entry_tech4all_pos_on_update",
+      "tech4all_standard_pos_custom_stock_entry_tech4all_pos_on_update_after_submit",
+      "tech4all_standard_pos_custom_stock_entry_tech4all_pos_update_material_request_status",
+      "tech4all_standard_pos_custom_stock_entry_tech4all_pos_validate_warehouse"
+    ],
+    "34": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_getinvoicefromorderdoc",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_goforpayment",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_onenterkey",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_paymentprocess",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_processinvoicefromorder",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_updateinvoicefromorder"
+    ],
+    "35": [
+      "tech4all_standard_pos_public_js_posapp_posapp",
+      "tech4all_standard_pos_public_js_posapp_posapp_constructor",
+      "tech4all_standard_pos_public_js_posapp_posapp_make_body",
+      "tech4all_standard_pos_public_js_posapp_posapp_setup_header",
+      "tech4all_standard_pos_public_js_tech4all_standard_pos_bundle",
+      "tech4all_standard_pos_public_js_toconsole"
+    ],
+    "36": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_branchrequisitiontemplate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_branchrequisitiontemplate_sort_items",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_branchrequisitiontemplate_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_branchrequisitiontemplate_validate_items",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_py_tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template"
+    ],
+    "37": [
+      "controllers_queries",
+      "controllers_queries_branch_warehouses",
+      "controllers_queries_get_pos_submit_report_items",
+      "controllers_queries_py_whitelist",
+      "validate_and_sanitize_search_inputs"
+    ],
+    "38": [
+      "tech4all_standard_pos_custom_branch_tech4all_pos",
+      "tech4all_standard_pos_custom_branch_tech4all_pos_download_feedback_qr_code",
+      "tech4all_standard_pos_custom_branch_tech4all_pos_py_whitelist",
+      "tech4all_standard_pos_custom_branch_tech4all_pos_rationale_35",
+      "tech4all_standard_pos_custom_branch_tech4all_pos_validate"
+    ],
+    "39": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_getformattedprintformat",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_load_print_page",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_setdefaultvalue",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_submitsaleinvoice",
+      "tech4all_standard_pos_public_js_posapp_printing_printinvoice"
+    ],
+    "40": [
+      "tech4all_standard_pos_public_js_tech4all_pra_controller",
+      "tech4all_standard_pos_public_js_tech4all_pra_controller_pospra",
+      "tech4all_standard_pos_public_js_tech4all_pra_controller_pospra_constructor",
+      "tech4all_standard_pos_public_js_tech4all_pra_controller_pospra_sendtopra",
+      "tech4all_standard_pos_public_js_tech4all_pra_controller_pospra_setprahost"
+    ],
+    "41": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees_branchdiscountpolicyemployees",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees_branchdiscountpolicyemployees_validate",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees_branchdiscountpolicyemployees_validate_discount_percentage",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees_py_tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees"
+    ],
+    "42": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_refresh",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_set_posting_date",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_set_posting_date_read_only",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_setup"
+    ],
+    "43": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posopeningdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_posopeningdialog_setup",
+      "tech4all_standard_pos_public_js_posapp_indexeddb",
+      "tech4all_standard_pos_public_js_posapp_indexeddb_indexeddbservice"
+    ],
+    "44": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_closedialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_defaultvalue",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_getitembundle",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_submitselection"
+    ],
+    "45": [
+      "tech4all_standard_pos_config_docs",
+      "tech4all_standard_pos_config_docs_get_context",
+      "tech4all_standard_pos_config_docs_rationale_1"
+    ],
+    "46": [
+      "tech4all_standard_pos_custom_get_item_details_custom",
+      "tech4all_standard_pos_custom_get_item_details_custom_get_item_details_custom",
+      "tech4all_standard_pos_custom_get_item_details_custom_py_whitelist"
+    ],
+    "47": [
+      "tech4all_standard_pos_custom_sales_invoice_custom",
+      "tech4all_standard_pos_custom_sales_invoice_custom_get_packed_items",
+      "tech4all_standard_pos_custom_sales_invoice_custom_on_submit"
+    ],
+    "48": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_closecustomerdialog",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_getcustomernames",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_submitcustomerdialog"
+    ],
+    "49": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_cancelsplit",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_changepaymenttype",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_closedialog"
+    ],
+    "50": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_sales_order",
+      "tech4all_standard_pos_tech4all_standard_pos_api_sales_order_py_whitelist",
+      "tech4all_standard_pos_tech4all_standard_pos_api_sales_order_sales_order_on_submit"
+    ],
+    "51": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_update_invoice_tax",
+      "tech4all_standard_pos_tech4all_standard_pos_api_update_invoice_tax_get_qr_data",
+      "tech4all_standard_pos_tech4all_standard_pos_api_update_invoice_tax_py_whitelist"
+    ],
+    "52": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_test_automated_bom_manufacturing",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_test_automated_bom_manufacturing_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_test_automated_bom_manufacturing_testautomatedbommanufacturing"
+    ],
+    "53": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_branch_discount_policy_branchdiscountpolicy",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_branch_discount_policy_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_branch_discount_policy_py_tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_branch_discount_policy"
+    ],
+    "54": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_test_branch_discount_policy_employees",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_test_branch_discount_policy_employees_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_test_branch_discount_policy_employees_testbranchdiscountpolicyemployees"
+    ],
+    "55": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_test_branch_discount_policy",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_test_branch_discount_policy_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_test_branch_discount_policy_testbranchdiscountpolicy"
+    ],
+    "56": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_items_branch_requisition_template_items",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_items_branch_requisition_template_items_branchrequisitiontemplateitems",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_items_branch_requisition_template_items_py_document"
+    ],
+    "57": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_test_branch_requisition_template",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_test_branch_requisition_template_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_test_branch_requisition_template_testbranchrequisitiontemplate"
+    ],
+    "58": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_type_mapping_branch_requisition_type_mapping",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_type_mapping_branch_requisition_type_mapping_branchrequisitiontypemapping",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_type_mapping_branch_requisition_type_mapping_py_document"
+    ],
+    "59": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_warehouse_branch_warehouse",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_warehouse_branch_warehouse_branchwarehouse",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_warehouse_branch_warehouse_py_document"
+    ],
+    "60": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_pos_profile_delivery_charges_pos_profile",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_pos_profile_delivery_charges_pos_profile_deliverychargesposprofile",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_pos_profile_delivery_charges_pos_profile_py_document"
+    ],
+    "61": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_range_delivery_charges_range",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_range_delivery_charges_range_deliverychargesrange",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_range_delivery_charges_range_py_document"
+    ],
+    "62": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_payment_integration_methods_payment_integration_methods",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_payment_integration_methods_payment_integration_methods_paymentintegrationmethods",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_payment_integration_methods_payment_integration_methods_py_document"
+    ],
+    "63": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_test_pos_branch_depository",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_test_pos_branch_depository_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_test_pos_branch_depository_testposbranchdepository"
+    ],
+    "64": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_detail_pos_closing_shift_detail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_detail_pos_closing_shift_detail_posclosingshiftdetail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_detail_pos_closing_shift_detail_py_document"
+    ],
+    "65": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_taxes_pos_closing_shift_taxes",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_taxes_pos_closing_shift_taxes_posclosingshifttaxes",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_taxes_pos_closing_shift_taxes_py_document"
+    ],
+    "66": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_detail_pos_coupon_detail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_detail_pos_coupon_detail_poscoupondetail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_detail_pos_coupon_detail_py_document"
+    ],
+    "67": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_detail_pos_offer_detail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_detail_pos_offer_detail_posofferdetail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_detail_pos_offer_detail_py_document"
+    ],
+    "68": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer_controllers",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer_set_filters"
+    ],
+    "69": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer_posoffer",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_pos_offer"
+    ],
+    "70": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_detail_pos_opening_shift_detail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_detail_pos_opening_shift_detail_posopeningshiftdetail",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_detail_pos_opening_shift_detail_py_document"
+    ],
+    "71": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_entry_reference_pos_payment_entry_reference",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_entry_reference_pos_payment_entry_reference_pospaymententryreference",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_entry_reference_pos_payment_entry_reference_py_document"
+    ],
+    "72": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_pos_payment_integration_pospaymentintegration",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_pos_payment_integration_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_pos_payment_integration_py_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_pos_payment_integration"
+    ],
+    "73": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_test_pos_payment_integration",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_test_pos_payment_integration_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_test_pos_payment_integration_testpospaymentintegration"
+    ],
+    "74": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_profile_employee_pos_profile_employee",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_profile_employee_pos_profile_employee_posprofileemployee",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_profile_employee_pos_profile_employee_py_document"
+    ],
+    "75": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sales_invoice_reference_sales_invoice_reference",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sales_invoice_reference_sales_invoice_reference_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sales_invoice_reference_sales_invoice_reference_salesinvoicereference"
+    ],
+    "76": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_sentiment_analysis_report_py_document",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_sentiment_analysis_report_py_tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_sentiment_analysis_report",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_sentiment_analysis_report_sentimentanalysisreport"
+    ],
+    "77": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_test_sentiment_analysis_report",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_test_sentiment_analysis_report_py_frappetestcase",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_test_sentiment_analysis_report_testsentimentanalysisreport"
+    ],
+    "78": [
+      "tech4all_standard_pos_tech4all_standard_pos_page_posapp_posapp",
+      "tech4all_standard_pos_tech4all_standard_pos_page_posapp_posapp_install_pos_fullscreen_styles",
+      "tech4all_standard_pos_tech4all_standard_pos_page_posapp_posapp_set_pos_fullscreen"
+    ],
+    "79": [
+      "tech4all_standard_pos_tech4all_standard_pos_utils_pra_data",
+      "tech4all_standard_pos_tech4all_standard_pos_utils_pra_data_get_pra_invoice_data",
+      "tech4all_standard_pos_tech4all_standard_pos_utils_pra_data_get_pra_invoice_items"
+    ],
+    "80": [
+      "tech4all_standard_pos_uninstall",
+      "tech4all_standard_pos_uninstall_after_uninstall",
+      "tech4all_standard_pos_uninstall_clear_custom_fields_and_properties"
+    ],
+    "85": [
+      "tech4all_standard_pos_config_desktop",
+      "tech4all_standard_pos_config_desktop_get_data"
+    ],
+    "86": [
+      "tech4all_standard_pos_config_pos_awesome",
+      "tech4all_standard_pos_config_pos_awesome_get_data"
+    ],
+    "87": [
+      "tech4all_standard_pos_hooks",
+      "tech4all_standard_pos_init"
+    ],
+    "88": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customer",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_customer_data"
+    ],
+    "89": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_defaultsaleordervalue",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_processsaleorder"
+    ],
+    "90": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_deleteitem",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_ordersummary_makepayloadforinvoice"
+    ],
+    "91": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_resetallamounts",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_paymentnew_updateremainingamount"
+    ],
+    "92": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_get_variants",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_opendialog"
+    ],
+    "93": [
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_nextstep",
+      "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist_onoptionselect"
+    ],
+    "94": [
+      "tech4all_standard_pos_public_js_posapp_store_index",
+      "tech4all_standard_pos_public_js_posapp_store_index_store"
+    ],
+    "95": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_test_delivery_charges",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_test_delivery_charges_testdeliverycharges"
+    ],
+    "96": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_test_mpesa_c2b_register_url",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_test_mpesa_c2b_register_url_testmpesac2bregisterurl"
+    ],
+    "97": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_test_mpesa_payment_register",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_test_mpesa_payment_register_testmpesapaymentregister"
+    ],
+    "98": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_test_pos_coupon",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_test_pos_coupon_testposcoupon"
+    ],
+    "99": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_test_pos_offer",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_test_pos_offer_testposoffer"
+    ],
+    "100": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_test_pos_opening_shift",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_test_pos_opening_shift_testposopeningshift"
+    ],
+    "101": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_test_referral_code",
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_test_referral_code_testreferralcode"
+    ],
+    "102": [
+      "vuetify_project_src_components_appfooter",
+      "vuetify_project_src_components_appfooter_items"
+    ],
+    "103": [
+      "setup"
+    ],
+    "104": [
+      "tech4all_standard_pos_config_init"
+    ],
+    "105": [
+      "tech4all_standard_pos_custom_sales_order_custom"
+    ],
+    "106": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_company"
+    ],
+    "107": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_init"
+    ],
+    "108": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_invoice_js_tech4all_standard_pos_tech4all_standard_pos_api_invoice"
+    ],
+    "109": [
+      "tech4all_standard_pos_tech4all_standard_pos_api_pos_profile"
+    ],
+    "110": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_js_tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing"
+    ],
+    "111": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_init"
+    ],
+    "112": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_branch_discount_policy_js_tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_branch_discount_policy"
+    ],
+    "113": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees_js_tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_branch_discount_policy_employees"
+    ],
+    "114": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_employees_init"
+    ],
+    "115": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_discount_policy_init"
+    ],
+    "116": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template_js_tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_branch_requisition_template"
+    ],
+    "117": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_init"
+    ],
+    "118": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_template_items_init"
+    ],
+    "119": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_requisition_type_mapping_init"
+    ],
+    "120": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_branch_warehouse_init"
+    ],
+    "121": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges_js_tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_delivery_charges"
+    ],
+    "122": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_init"
+    ],
+    "123": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_pos_profile_init"
+    ],
+    "124": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_delivery_charges_range_init"
+    ],
+    "125": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_init"
+    ],
+    "126": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_init"
+    ],
+    "127": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url_js_tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_c2b_register_url_mpesa_c2b_register_url"
+    ],
+    "128": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_init"
+    ],
+    "129": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_js_tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register"
+    ],
+    "130": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_payment_integration_methods_init"
+    ],
+    "131": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_init"
+    ],
+    "132": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_branch_depository_pos_branch_depository"
+    ],
+    "133": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_detail_init"
+    ],
+    "134": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_init"
+    ],
+    "135": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_taxes_init"
+    ],
+    "136": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_detail_init"
+    ],
+    "137": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_init"
+    ],
+    "138": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_coupon_pos_coupon"
+    ],
+    "139": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_detail_init"
+    ],
+    "140": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_offer_init"
+    ],
+    "141": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_detail_init"
+    ],
+    "142": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_init"
+    ],
+    "143": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_opening_shift_pos_opening_shift_list"
+    ],
+    "144": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_entry_reference_init"
+    ],
+    "145": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_init"
+    ],
+    "146": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_pos_payment_integration_js_tech4all_standard_pos_tech4all_standard_pos_doctype_pos_payment_integration_pos_payment_integration"
+    ],
+    "147": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_profile_employee_init"
+    ],
+    "148": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_init"
+    ],
+    "149": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code_js_tech4all_standard_pos_tech4all_standard_pos_doctype_referral_code_referral_code"
+    ],
+    "150": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sales_invoice_reference_init"
+    ],
+    "151": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_init"
+    ],
+    "152": [
+      "tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_sentiment_analysis_report_js_tech4all_standard_pos_tech4all_standard_pos_doctype_sentiment_analysis_report_sentiment_analysis_report"
+    ],
+    "153": [
+      "tech4all_standard_pos_tech4all_standard_pos_init"
+    ],
+    "154": [
+      "tech4all_standard_pos_tech4all_standard_pos_page_customerscreen_customerscreen"
+    ],
+    "155": [
+      "tech4all_standard_pos_tech4all_standard_pos_page_customerscreen_init"
+    ],
+    "156": [
+      "tech4all_standard_pos_tech4all_standard_pos_page_init"
+    ],
+    "157": [
+      "tech4all_standard_pos_tech4all_standard_pos_page_posapp_init"
+    ],
+    "158": [
+      "tech4all_standard_pos_tech4all_standard_pos_page_posapp_onscan"
+    ],
+    "159": [
+      "tech4all_standard_pos_templates_init"
+    ],
+    "160": [
+      "tech4all_standard_pos_templates_pages_init"
+    ],
+    "161": [
+      "vuetify_project_eslintrc"
+    ],
+    "162": [
+      "vuetify_project_src_components_helloworld"
+    ],
+    "163": [
+      "vuetify_project_src_pages_index"
+    ],
+    "164": [
+      "vuetify_project_vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.052160493827160495,
+    "1": 0.04081632653061224,
+    "2": 0.046511627906976744,
+    "3": 0.04878048780487805,
+    "4": 0.1032258064516129,
+    "5": 0.10591133004926108,
+    "6": 0.06896551724137931,
+    "7": 0.1619047619047619,
+    "8": 0.05405405405405406,
+    "9": 0.23333333333333334,
+    "10": 0.13333333333333333,
+    "11": 0.1523809523809524,
+    "12": 0.14285714285714285,
+    "13": 0.19047619047619047,
+    "14": 0.26373626373626374,
+    "15": 0.15384615384615385,
+    "16": 0.20512820512820512,
+    "18": 0.22727272727272727,
+    "19": 0.2,
+    "20": 0.2,
+    "21": 0.2727272727272727,
+    "22": 0.2222222222222222,
+    "23": 0.24444444444444444,
+    "24": 0.2222222222222222,
+    "25": 0.2222222222222222,
+    "26": 0.25,
+    "27": 0.2857142857142857,
+    "29": 0.32142857142857145,
+    "30": 0.3333333333333333,
+    "31": 0.38095238095238093,
+    "32": 0.47619047619047616,
+    "33": 0.5333333333333333,
+    "34": 0.3333333333333333,
+    "35": 0.4,
+    "36": 0.4666666666666667,
+    "37": 0.5,
+    "38": 0.4,
+    "39": 0.4,
+    "40": 0.4,
+    "41": 0.5,
+    "42": 0.4,
+    "43": 0.6666666666666666,
+    "44": 0.5,
+    "45": 0.6666666666666666,
+    "46": 0.6666666666666666,
+    "47": 1.0,
+    "48": 0.6666666666666666,
+    "49": 0.6666666666666666,
+    "50": 0.6666666666666666,
+    "51": 0.6666666666666666,
+    "52": 0.6666666666666666,
+    "53": 0.6666666666666666,
+    "54": 0.6666666666666666,
+    "55": 0.6666666666666666,
+    "56": 0.6666666666666666,
+    "57": 0.6666666666666666,
+    "58": 0.6666666666666666,
+    "59": 0.6666666666666666,
+    "60": 0.6666666666666666,
+    "61": 0.6666666666666666,
+    "62": 0.6666666666666666,
+    "63": 0.6666666666666666,
+    "64": 0.6666666666666666,
+    "65": 0.6666666666666666,
+    "66": 0.6666666666666666,
+    "67": 0.6666666666666666,
+    "68": 0.6666666666666666,
+    "69": 0.6666666666666666,
+    "70": 0.6666666666666666,
+    "71": 0.6666666666666666,
+    "72": 0.6666666666666666,
+    "73": 0.6666666666666666,
+    "74": 0.6666666666666666,
+    "75": 0.6666666666666666,
+    "76": 0.6666666666666666,
+    "77": 0.6666666666666666,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0,
+    "94": 1.0,
+    "95": 1.0,
+    "96": 1.0,
+    "97": 1.0,
+    "98": 1.0,
+    "99": 1.0,
+    "100": 1.0,
+    "101": 1.0,
+    "102": 1.0,
+    "103": 1.0,
+    "104": 1.0,
+    "105": 1.0,
+    "106": 1.0,
+    "107": 1.0,
+    "108": 1.0,
+    "109": 1.0,
+    "110": 1.0,
+    "111": 1.0,
+    "112": 1.0,
+    "113": 1.0,
+    "114": 1.0,
+    "115": 1.0,
+    "116": 1.0,
+    "117": 1.0,
+    "118": 1.0,
+    "119": 1.0,
+    "120": 1.0,
+    "121": 1.0,
+    "122": 1.0,
+    "123": 1.0,
+    "124": 1.0,
+    "125": 1.0,
+    "126": 1.0,
+    "127": 1.0,
+    "128": 1.0,
+    "129": 1.0,
+    "130": 1.0,
+    "131": 1.0,
+    "132": 1.0,
+    "133": 1.0,
+    "134": 1.0,
+    "135": 1.0,
+    "136": 1.0,
+    "137": 1.0,
+    "138": 1.0,
+    "139": 1.0,
+    "140": 1.0,
+    "141": 1.0,
+    "142": 1.0,
+    "143": 1.0,
+    "144": 1.0,
+    "145": 1.0,
+    "146": 1.0,
+    "147": 1.0,
+    "148": 1.0,
+    "149": 1.0,
+    "150": 1.0,
+    "151": 1.0,
+    "152": 1.0,
+    "153": 1.0,
+    "154": 1.0,
+    "155": 1.0,
+    "156": 1.0,
+    "157": 1.0,
+    "158": 1.0,
+    "159": 1.0,
+    "160": 1.0,
+    "161": 1.0,
+    "162": 1.0,
+    "163": 1.0,
+    "164": 1.0
+  },
+  "gods": [
+    {
+      "id": "tech4all_standard_pos_json_compat_loads",
+      "label": "loads()",
+      "degree": 26
+    },
+    {
+      "id": "tech4all_standard_pos_public_js_posapp_bus_eventbus",
+      "label": "eventBus",
+      "degree": 12
+    },
+    {
+      "id": "tech4all_standard_pos_tech4all_standard_pos_doctype_automated_bom_manufacturing_automated_bom_manufacturing_automatedbommanufacturing",
+      "label": "AutomatedBOMManufacturing",
+      "degree": 9
+    },
+    {
+      "id": "tech4all_standard_pos_tech4all_standard_pos_doctype_pos_closing_shift_pos_closing_shift_posclosingshift",
+      "label": "POSClosingShift",
+      "degree": 9
+    },
+    {
+      "id": "tech4all_standard_pos_tech4all_standard_pos_api_posapp_sales_invoice",
+      "label": "sales_invoice()",
+      "degree": 9
+    },
+    {
+      "id": "tech4all_standard_pos_overrides_material_request_override_materialrequestoverride",
+      "label": "MaterialRequestOverride",
+      "degree": 8
+    },
+    {
+      "id": "vuetify_project_jsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 8
+    },
+    {
+      "id": "tech4all_standard_pos_tech4all_standard_pos_api_posapp_submit_invoice",
+      "label": "submit_invoice()",
+      "degree": 7
+    },
+    {
+      "id": "tech4all_standard_pos_public_js_posapp_indexeddb_indexeddbservice",
+      "label": "indexedDBService",
+      "degree": 7
+    },
+    {
+      "id": "tech4all_standard_pos_tech4all_standard_pos_doctype_mpesa_payment_register_mpesa_payment_register_mpesapaymentregister",
+      "label": "MpesaPaymentRegister",
+      "degree": 6
+    }
+  ],
+  "surprises": [
+    {
+      "source": "create_automated_bom_manufacturing()",
+      "target": "loads()",
+      "source_files": [
+        "tech4all_standard_pos/tech4all_standard_pos/doctype/automated_bom_manufacturing/automated_bom_manufacturing.py",
+        "tech4all_standard_pos/json_compat.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities; peripheral node `create_automated_bom_manufacturing()` unexpectedly reaches hub `loads()`"
+    },
+    {
+      "source": "sales_invoice()",
+      "target": "get_bank_cash_account()",
+      "source_files": [
+        "tech4all_standard_pos/tech4all_standard_pos/api/posapp.py",
+        "tech4all_standard_pos/tech4all_standard_pos/api/payment_entry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "submit_invoice()",
+      "target": "get_bank_cash_account()",
+      "source_files": [
+        "tech4all_standard_pos/tech4all_standard_pos/api/posapp.py",
+        "tech4all_standard_pos/tech4all_standard_pos/api/payment_entry.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "setup()",
+      "target": "logOut()",
+      "source_files": [
+        "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
+        "tech4all_standard_pos/public/js/posapp/components/zaraPos/Header.vue"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; peripheral node `logOut()` unexpectedly reaches hub `setup()`"
+    },
+    {
+      "source": "setup()",
+      "target": "getHoldOrders()",
+      "source_files": [
+        "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
+        "tech4all_standard_pos/public/js/posapp/components/zaraPos/HoldOrders.vue"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; peripheral node `getHoldOrders()` unexpectedly reaches hub `setup()`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `eventBus` connect `bus.js` to `OrderSummary.vue`, `ProductList.vue`, `PaymentNew.vue`, `Header.vue`, `zaraPos/Home.vue`, `PosClosingDialog.vue`, `indexedDB.js`, `HoldOrders.vue`, `OrderHistory.vue`?",
+      "why": "High betweenness centrality (0.016) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `indexedDBService` connect `indexedDB.js` to `OrderSummary.vue`, `ProductList.vue`, `PaymentNew.vue`, `Header.vue`, `zaraPos/Home.vue`?",
+      "why": "High betweenness centrality (0.009) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `loads()` connect `posapp.py` to `payment_entry.py`, `AutomatedBOMManufacturing`, `POSClosingShift`?",
+      "why": "High betweenness centrality (0.006) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `TestPOSOpeningShift`, `TestReferralCode`, `OverAllowanceError` to the rest of the system?",
+      "why": "184 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `posapp.py` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.052160493827160495 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `OrderSummary.vue` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.04081632653061224 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `ProductList.vue` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

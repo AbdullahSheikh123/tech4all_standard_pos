@@ -185,6 +185,11 @@ const variantAddonCache = new Map();
 const getAllItems = ref(false);
 const offlineMode = ref(false);
 const unsyncInvoice = ref(0);
+// Separate interval/lock for Sales Order queue sync (KOT Print offline queue)
+// so it doesn't interfere with the Sales Invoice sync above.
+let soIntervalId = ref(null);
+const soRequestComplete = ref(false);
+const unsyncSalesOrder = ref(0);
 variantSelections: []
 
 const variantsDialog = ref(false);
@@ -462,6 +467,8 @@ const handleOffline = () => {
   console.log("Internet connection lost.");
   clearInterval(intervalId.value);
   intervalId.value = null;
+  clearInterval(soIntervalId.value);
+  soIntervalId.value = null;
   // products.value = [];
   // products.value = JSON.parse(localStorage.getItem("items_storage"));
   eventBus.emit("set_all_items", products.value);
@@ -508,6 +515,13 @@ const handleOnline = () => {
     // console.log("else clear interval")
     // clearInterval(intervalId.value);
     // intervalId.value = null;
+  }
+
+  if (isOnline.value && !soIntervalId.value) {
+    soIntervalId.value = setInterval(
+      syncSalesOrdersFromIndexedDB,
+      pollingInterval
+    );
   }
 };
 // const syncData = () => {
@@ -694,6 +708,78 @@ const syncSalesInvoiceRecord = async (db, record) => {
     return response;
   } catch (error) {
     console.error("An error occurred during the sync process:", error);
+    return Promise.reject(error);
+  }
+};
+
+// Background sync for the Sales Order queue (KOT Print made while offline).
+// Mirrors syncSalesInvoicesFromIndexedDB/syncSalesInvoiceRecord above but
+// targets the separate 'create_sales_order' store and its own interval, so
+// a stall in one queue never blocks the other.
+const syncSalesOrdersFromIndexedDB = async () => {
+  try {
+    await indexedDBService.openDatabase();
+    const allRecords = await indexedDBService.getSalesOrderQueue();
+    const unsyncedRecords = allRecords.filter((record) => record.synced === false);
+
+    unsyncSalesOrder.value = unsyncedRecords.length;
+    eventBus.emit("Unsync-sales-order", unsyncSalesOrder.value);
+
+    if (unsyncedRecords.length === 0) {
+      clearInterval(soIntervalId.value);
+      soIntervalId.value = null;
+      return;
+    }
+
+    if (!soRequestComplete.value) {
+      for (const record of unsyncedRecords) {
+        await syncSalesOrderRecord(record);
+      }
+    }
+  } catch (error) {
+    console.error("Error during sales order synchronization:", error);
+  }
+};
+
+const syncSalesOrderRecord = async (record) => {
+  try {
+    soRequestComplete.value = true;
+
+    const method =
+      record.mode === "update"
+        ? "tech4all_standard_pos.tech4all_standard_pos.api.posapp.update_sales_order_from_pos"
+        : "tech4all_standard_pos.tech4all_standard_pos.api.posapp.create_sales_order_from_pos";
+    const args =
+      record.mode === "update"
+        ? { name: record.so_name, data: record.data }
+        : { data: record.data };
+
+    const response = await new Promise((resolve, reject) => {
+      frappe.call({
+        method,
+        args,
+        callback: (response) => {
+          soRequestComplete.value = false;
+          if (!response.exc && response.message && response.message.name) {
+            resolve(response);
+          } else {
+            reject(response.exc || new Error("Failed to sync sales order record"));
+          }
+        },
+      });
+    });
+
+    await indexedDBService.markSalesOrderQueueSynced(record.id, response.message.name);
+    eventBus.emit("sales-order-synced", {
+      queueId: record.id,
+      name: response.message.name,
+    });
+    console.log("Sales order queue record synced:", record.id, "->", response.message.name);
+
+    return response;
+  } catch (error) {
+    soRequestComplete.value = false;
+    console.error("An error occurred syncing queued sales order:", error);
     return Promise.reject(error);
   }
 };

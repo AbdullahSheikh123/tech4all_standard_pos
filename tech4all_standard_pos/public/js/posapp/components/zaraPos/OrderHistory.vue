@@ -1,27 +1,60 @@
 <template>
   <v-card elevation="1" class="border-16 product-main-card">
-    <v-row class="pl-6 pt-6">
+    <v-row class="pl-6 pt-6 align-center">
       <v-col cols="3" class="mt-3">
-        <h3>Sale Orders</h3>
+        <h3>Sale Orders <span class="text-grey text-body-1">{{ filteredOrders.length }}/{{ orders.length }}</span></h3>
       </v-col>
-      <!-- <v-col cols="9" class="d-flex justify-end">
-        <v-btn
+      <v-col cols="9" class="d-flex justify-end align-center flex-wrap ga-2 pr-4">
+        <v-text-field
+          v-model="searchText"
+          density="compact"
           variant="outlined"
-          size="large"
-          class="text-capitalize mr-2"
-          color="#21A0A0"
-          style="border-radius: 8px"
-          @click="changePaymentMode(category)"
-          width="300px"
+          hide-details
+          placeholder="Search..."
+          prepend-inner-icon="mdi-magnify"
+          style="max-width: 220px"
+        ></v-text-field>
+        <v-select
+          v-model="selectedStatuses"
+          :items="statusOptions"
+          label="Status"
+          multiple
+          density="compact"
+          variant="outlined"
+          hide-details
+          style="max-width: 180px"
         >
-          <p class="mt-2 category-p">Return</p>
+          <template v-slot:selection="{ index }">
+            <span v-if="index === 0" class="text-caption">
+              {{ selectedStatuses.length === statusOptions.length ? 'All' : selectedStatuses.join(', ') }}
+            </span>
+          </template>
+        </v-select>
+        <v-select
+          v-model="selectedTypes"
+          :items="typeOptions"
+          label="Type"
+          multiple
+          density="compact"
+          variant="outlined"
+          hide-details
+          style="max-width: 180px"
+        >
+          <template v-slot:selection="{ index }">
+            <span v-if="index === 0" class="text-caption">
+              {{ selectedTypes.length === typeOptions.length ? 'All' : selectedTypes.join(', ') }}
+            </span>
+          </template>
+        </v-select>
+        <v-btn icon size="small" color="#21A0A0" @click="get_draft_orders()">
+          <v-icon>mdi-refresh</v-icon>
         </v-btn>
-      </v-col> -->
+      </v-col>
     </v-row>
 
     <v-row class="pl-2 pr-9">
       <v-col
-        v-for="order in orders"
+        v-for="order in filteredOrders"
         :key="order.id"
         cols="12"
         sm="6"
@@ -46,9 +79,13 @@
         >
           <v-card-text class="pb-0">
             <div class="dis-grid">
-              <div class="d-flex">
+              <div class="d-flex align-center">
                 <div class="panda-go-div">{{order.order_type}}</div>
-                <span class="ml-2 mt-1">{{ order.name }}</span>
+                <span class="ml-2 mt-1">{{ order.name || 'Not synced yet' }}</span>
+                <span
+                  class="ml-2 sync-status-text"
+                  :class="'sync-' + order._syncStatus.toLowerCase()"
+                >{{ order._syncStatus }}</span>
               </div>
               <p class="mt-2">
                 <span class="text-grey">{{
@@ -81,7 +118,7 @@
             </div>
             <v-divider class="dotted-divider mt-0" :thickness="3"></v-divider>
 
-            <v-row class="d-flex align-center my-2">
+            <v-row v-if="order.pandago_order_status" class="d-flex align-center my-2">
               <!-- NEW -->
               <v-chip
                 color="cyan lighten-4"
@@ -90,17 +127,6 @@
                 style="font-size: 12px"
               >
                 {{order.pandago_order_status}}
-              </v-chip>
-              <v-divider class="my-3 dotted-divider" vertical :thickness="3"></v-divider>
-
-
-              <v-chip
-                color="grey lighten-4"
-                text-color="grey darken-1"
-                class="ma-1"
-                style="font-size: 12px"
-              >
-                {{order.status}}
               </v-chip>
 
               <!-- <v-chip
@@ -148,8 +174,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import eventBus from "../../bus";
+import indexedDBService from "../../indexedDB";
 
 const orders = ref([
   // {
@@ -163,6 +190,54 @@ const orders = ref([
 const pos_profile = ref("");
 const selectedOrder = ref("");
 const itemloading = ref(false);
+
+// Filter bar state (Search / Status / Type - see search_orders and
+// get_draft_orders for how each order's _syncStatus/order_type is derived).
+const searchText = ref("");
+const statusOptions = ["Pending", "Draft", "Paid", "Completed"];
+const selectedStatuses = ref([...statusOptions]);
+
+// Type options are derived from whatever order_type values are actually on
+// the loaded orders - Sales Order has no dine-in/takeaway field today (only
+// the standard ERPNext "order_type", which create_sales_order_from_pos
+// always sets to "Sales"), so this list will only grow once/if that's added.
+const typeOptions = computed(() => {
+  const types = new Set(orders.value.map((o) => o.order_type).filter(Boolean));
+  return Array.from(types);
+});
+const selectedTypes = ref([]);
+watch(
+  typeOptions,
+  (newTypes) => {
+    // Default to "all types selected" whenever the available set changes,
+    // so nothing is silently hidden after a refresh.
+    selectedTypes.value = [...newTypes];
+  },
+  { immediate: true }
+);
+
+const filteredOrders = computed(() => {
+  const text = searchText.value.trim().toLowerCase();
+  return orders.value.filter((order) => {
+    if (
+      selectedStatuses.value.length &&
+      !selectedStatuses.value.includes(order._syncStatus)
+    ) {
+      return false;
+    }
+    if (
+      selectedTypes.value.length &&
+      !selectedTypes.value.includes(order.order_type)
+    ) {
+      return false;
+    }
+    if (text) {
+      const haystack = `${order.name || ""} ${order.customer || ""}`.toLowerCase();
+      if (!haystack.includes(text)) return false;
+    }
+    return true;
+  });
+});
 
 const showOrderDetail = (order) => {
   selectedOrder.value = order;
@@ -181,24 +256,83 @@ const formatDeliveryDate = (date) => {
   return new Date(date).toLocaleString("en-US", options).replace(", ", " ");
 };
 
+// Four states shown on each card, derived per the actual lifecycle of a
+// KOT-Print order (see posapp.py::create_sales_order_from_pos and
+// invoice.py::close_linked_sales_order):
+//   Pending   - created offline, not yet reached the server at all
+//               (create_sales_order queue, mode 'create', unsynced)
+//   Draft     - a real Sales Order exists on the server, still open/unpaid
+//   Paid      - payment was taken (Sales Invoice built) but that invoice is
+//               itself still sitting in its own offline queue
+//               (create_invoice), so the Sales Order hasn't been
+//               submitted/completed on the server yet
+//   Completed - Sales Order submitted and marked Completed on the server
+//               (both the order and its payment have fully synced)
 const get_draft_orders = async () => {
   try {
     itemloading.value = true;
-    const response = await frappe.call({
-      method: "tech4all_standard_pos.tech4all_standard_pos.api.posapp.search_orders",
-      args: {
-        company: pos_profile.value.company,
-        currency: pos_profile.value.currency,
-        pos_profile:pos_profile.value
-      },
+
+    let serverOrders = [];
+    if (navigator.onLine) {
+      try {
+        const response = await frappe.call({
+          method: "tech4all_standard_pos.tech4all_standard_pos.api.posapp.search_orders",
+          args: {
+            company: pos_profile.value.company,
+            currency: pos_profile.value.currency,
+            pos_profile: pos_profile.value
+          },
+        });
+        if (response.message) {
+          serverOrders = response.message;
+        }
+      } catch (error) {
+        console.error("Error fetching draft orders from server:", error);
+      }
+    }
+    serverOrders.forEach((order) => {
+      order._syncStatus = order.status === "Completed" ? "Completed" : "Draft";
     });
 
-    if (response.message) {
-      itemloading.value = false;
-      orders.value = response.message;
+    try {
+      await indexedDBService.openDatabase();
+
+      const soQueue = await indexedDBService.getSalesOrderQueue();
+      soQueue
+        .filter((record) => record.synced === false && record.mode === "create")
+        .forEach((record) => {
+          serverOrders.push({
+            name: null,
+            _queueId: record.id,
+            _syncStatus: "Pending",
+            order_type: (record.data && record.data.order_type) || "Sales",
+            creation: record.timestamp,
+            items: (record.data && record.data.items) || [],
+            grand_total: (record.data && record.data.grand_total) || 0,
+            customer: record.data && record.data.customer,
+          });
+        });
+
+      const invoiceQueue = await indexedDBService.getSalesInvoiceQueue();
+      invoiceQueue
+        .filter((record) => record.synced === false && record.invoice && record.invoice.sales_order)
+        .forEach((record) => {
+          const match = serverOrders.find(
+            (order) => order.name === record.invoice.sales_order
+          );
+          if (match) {
+            match._syncStatus = "Paid";
+          }
+        });
+    } catch (error) {
+      console.error("Error reading offline order/invoice queues:", error);
     }
+
+    itemloading.value = false;
+    orders.value = serverOrders;
   } catch (error) {
     console.error("Error fetching draft orders:", error);
+    itemloading.value = false;
   }
 };
 onMounted(() => {
@@ -208,6 +342,12 @@ onMounted(() => {
 
   eventBus.on("send_pos_profile", async (profile) => {
     pos_profile.value = profile;
+  });
+  // Refresh the list once a queued order successfully syncs so its card
+  // flips from Pending to Synced (and the local placeholder becomes the
+  // real Sales Order name).
+  eventBus.on("sales-order-synced", () => {
+    get_draft_orders();
   });
   eventBus.on("go-to-order-history", () => {
     get_draft_orders();
@@ -266,5 +406,27 @@ onMounted(() => {
 }
 .text-grey {
   color: #b3b3b3;
+}
+.sync-status-text {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 6px;
+}
+.sync-completed {
+  color: #1a9c5c;
+  background: #e3f7ec;
+}
+.sync-draft {
+  color: #3d6fb4;
+  background: #e6eefb;
+}
+.sync-paid {
+  color: #7a4fc2;
+  background: #efe7fb;
+}
+.sync-pending {
+  color: #b7791f;
+  background: #fdf1dc;
 }
 </style>

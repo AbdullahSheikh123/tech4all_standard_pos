@@ -2371,7 +2371,9 @@ def search_orders(company, currency, pos_profile=None, order_name=None):
     
     filters = {
         "billing_status": ["in", ["Not Billed", "Partly Billed"]],
-        "docstatus": 1,
+        # 0 = draft Sales Orders created from KOT Print (still being edited at the table),
+        # 1 = submitted Sales Orders. Both should surface on the Sale Orders screen.
+        "docstatus": ["in", [0, 1]],
         "company": company,
         "currency": currency,
         "status": ["not in", ["Cancelled", "Closed", "Completed"]],
@@ -2407,8 +2409,72 @@ def search_orders(company, currency, pos_profile=None, order_name=None):
         # Check if the order has status 'To Deliver and Bill' and the delivery date is not today or yesterday
         if not (order["status"] == "To Deliver and Bill" and order["delivery_date"] not in [today, yesterday]):
             data.append(frappe.get_doc("Sales Order", order["name"]))
-    
+
     return data
+
+
+def _set_sales_order_items_from_pos(so, items):
+    so.set("items", [])
+    delivery_date = so.delivery_date or nowdate()
+    for item in items or []:
+        so.append(
+            "items",
+            {
+                "item_code": item.get("item_code"),
+                "item_name": item.get("item_name"),
+                "qty": item.get("qty"),
+                "rate": item.get("rate"),
+                "delivery_date": delivery_date,
+            },
+        )
+
+
+@frappe.whitelist()
+def create_sales_order_from_pos(data):
+    """Create a draft Sales Order from the current POS cart - used by KOT Print
+    so the ticket shows up on the Sale Orders screen instead of Hold Orders.
+
+    Stays a draft (docstatus=0) so items can still be added/removed while the
+    table is open; it only gets submitted once the linked invoice is paid -
+    see invoice.py::close_linked_sales_order, called from before_submit.
+    """
+    data = json.loads(data) if isinstance(data, str) else data
+
+    so = frappe.new_doc("Sales Order")
+    so.customer = data.get("customer")
+    so.company = data.get("company")
+    so.currency = data.get("currency")
+    so.transaction_date = nowdate()
+    so.delivery_date = nowdate()
+    so.order_type = "Sales"
+
+    _set_sales_order_items_from_pos(so, data.get("items"))
+
+    so.flags.ignore_permissions = True
+    so.set_missing_values()
+    so.insert(ignore_permissions=True)
+    return so
+
+
+@frappe.whitelist()
+def update_sales_order_from_pos(name, data):
+    """Re-write the items on a draft Sales Order created via create_sales_order_from_pos,
+    e.g. when the cashier adds/removes items and reprints the KOT for the same ticket.
+    """
+    data = json.loads(data) if isinstance(data, str) else data
+    so = frappe.get_doc("Sales Order", name)
+
+    if so.docstatus != 0:
+        frappe.throw(
+            _("Sales Order {0} is already submitted and can no longer be edited from KOT Print.").format(name)
+        )
+
+    _set_sales_order_items_from_pos(so, data.get("items"))
+
+    so.flags.ignore_permissions = True
+    so.set_missing_values()
+    so.save(ignore_permissions=True)
+    return so
 
 
 def get_version():
