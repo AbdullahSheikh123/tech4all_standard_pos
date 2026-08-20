@@ -2010,6 +2010,18 @@
       "source_location": "L23"
     },
     {
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_posopeningdialog_setup",
+      "label": "setup()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 182,
+      "community_name": "indexedDB.js",
+      "file_type": "code",
+      "norm_label": "setup()",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/PosOpeningDialog.vue",
+      "source_location": "L80"
+    },
+    {
       "id": "tech4all_standard_pos_tech4all_standard_pos_api_posapp_get_app_branch",
       "label": "get_app_branch()",
       "_callable": true,
@@ -2055,7 +2067,7 @@
       "file_type": "code",
       "norm_label": "setup()",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L264"
+      "source_location": "L265"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_header_logout",
@@ -2787,7 +2799,7 @@
       "file_type": "code",
       "norm_label": "formatdeliverydate()",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L177"
+      "source_location": "L247"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_get_draft_orders",
@@ -2799,7 +2811,7 @@
       "file_type": "code",
       "norm_label": "get_draft_orders()",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L189"
+      "source_location": "L271"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_showorderdetail",
@@ -2811,19 +2823,7 @@
       "file_type": "code",
       "norm_label": "showorderdetail()",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L172"
-    },
-    {
-      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_posopeningdialog_setup",
-      "label": "setup()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "OrderHistory.vue",
-      "file_type": "code",
-      "norm_label": "setup()",
-      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/PosOpeningDialog.vue",
-      "source_location": "L80"
+      "source_location": "L242"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_printing_fetchinvoicedata",
@@ -3111,7 +3111,7 @@
       "file_type": "code",
       "norm_label": "setup()",
       "source_file": "tech4all_standard_pos/public/js/posapp/App.vue",
-      "source_location": "L23"
+      "source_location": "L21"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_productdialog_setup",
@@ -7935,26 +7935,37 @@
       "source_location": "L1"
     },
     {
-      "id": "vuetify_project_package_devdependencies_eslint_config_standard",
-      "label": "eslint-config-standard",
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_posopeningdialog",
+      "label": "PosOpeningDialog.vue",
       "_origin": "ast",
       "community": 182,
-      "community_name": "eslint-config-standard",
+      "community_name": "indexedDB.js",
       "file_type": "code",
-      "norm_label": "eslint-config-standard",
-      "source_file": "vuetify-project/package.json",
-      "source_location": "L20"
+      "norm_label": "posopeningdialog.vue",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/PosOpeningDialog.vue",
+      "source_location": "L1"
     },
     {
-      "id": "eslint_config_standard",
-      "label": "eslint-config-standard",
+      "id": "tech4all_standard_pos_public_js_posapp_indexeddb",
+      "label": "indexedDB.js",
       "_origin": "ast",
       "community": 182,
-      "community_name": "eslint-config-standard",
-      "file_type": "concept",
-      "norm_label": "eslint-config-standard",
-      "source_file": "vuetify-project/package.json",
-      "source_location": "L20"
+      "community_name": "indexedDB.js",
+      "file_type": "code",
+      "norm_label": "indexeddb.js",
+      "source_file": "tech4all_standard_pos/public/js/posapp/indexedDB.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "tech4all_standard_pos_public_js_posapp_indexeddb_indexeddbservice",
+      "label": "indexedDBService",
+      "_origin": "ast",
+      "community": 182,
+      "community_name": "indexedDB.js",
+      "file_type": "code",
+      "norm_label": "indexeddbservice",
+      "source_file": "tech4all_standard_pos/public/js/posapp/indexedDB.js",
+      "source_location": "L9"
     },
     {
       "id": "vuetify_project_package_devdependencies_eslint_plugin_import",
@@ -8023,26 +8034,26 @@
       "source_location": "L23"
     },
     {
-      "id": "vuetify_project_package_devdependencies_eslint_plugin_promise",
-      "label": "eslint-plugin-promise",
+      "id": "vuetify_project_package_devdependencies_eslint_config_standard",
+      "label": "eslint-config-standard",
       "_origin": "ast",
       "community": 186,
-      "community_name": "eslint-plugin-promise",
+      "community_name": "eslint-config-standard",
       "file_type": "code",
-      "norm_label": "eslint-plugin-promise",
+      "norm_label": "eslint-config-standard",
       "source_file": "vuetify-project/package.json",
-      "source_location": "L24"
+      "source_location": "L20"
     },
     {
-      "id": "eslint_plugin_promise",
-      "label": "eslint-plugin-promise",
+      "id": "eslint_config_standard",
+      "label": "eslint-config-standard",
       "_origin": "ast",
       "community": 186,
-      "community_name": "eslint-plugin-promise",
+      "community_name": "eslint-config-standard",
       "file_type": "concept",
-      "norm_label": "eslint-plugin-promise",
+      "norm_label": "eslint-config-standard",
       "source_file": "vuetify-project/package.json",
-      "source_location": "L24"
+      "source_location": "L20"
     },
     {
       "id": "tech4all_standard_pos_tech4all_standard_pos_api_posapp_rationale_2496",
@@ -8236,6 +8247,28 @@
       "norm_label": "styles",
       "source_file": "vuetify-project/src/styles/README.md",
       "source_location": "L1"
+    },
+    {
+      "id": "vuetify_project_package_devdependencies_eslint",
+      "label": "eslint",
+      "_origin": "ast",
+      "community": 197,
+      "community_name": "eslint",
+      "file_type": "code",
+      "norm_label": "eslint",
+      "source_file": "vuetify-project/package.json",
+      "source_location": "L19"
+    },
+    {
+      "id": "eslint",
+      "label": "eslint",
+      "_origin": "ast",
+      "community": 197,
+      "community_name": "eslint",
+      "file_type": "concept",
+      "norm_label": "eslint",
+      "source_file": "vuetify-project/package.json",
+      "source_location": "L19"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_productlist",
@@ -8821,6 +8854,17 @@
       "source_location": "L1"
     },
     {
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_filteredorders",
+      "label": "filteredOrders",
+      "_origin": "ast",
+      "community": 26,
+      "community_name": "OrderHistory.vue",
+      "file_type": "code",
+      "norm_label": "filteredorders",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L219"
+    },
+    {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_itemloading",
       "label": "itemloading",
       "_origin": "ast",
@@ -8829,7 +8873,7 @@
       "file_type": "code",
       "norm_label": "itemloading",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L170"
+      "source_location": "L192"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_orders",
@@ -8840,7 +8884,7 @@
       "file_type": "code",
       "norm_label": "orders",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L159"
+      "source_location": "L181"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_pos_profile",
@@ -8851,7 +8895,18 @@
       "file_type": "code",
       "norm_label": "pos_profile",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L168"
+      "source_location": "L190"
+    },
+    {
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_searchtext",
+      "label": "searchText",
+      "_origin": "ast",
+      "community": 26,
+      "community_name": "OrderHistory.vue",
+      "file_type": "code",
+      "norm_label": "searchtext",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L196"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_selectedorder",
@@ -8862,40 +8917,51 @@
       "file_type": "code",
       "norm_label": "selectedorder",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L169"
+      "source_location": "L191"
     },
     {
-      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_posopeningdialog",
-      "label": "PosOpeningDialog.vue",
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_selectedstatuses",
+      "label": "selectedStatuses",
       "_origin": "ast",
       "community": 26,
       "community_name": "OrderHistory.vue",
       "file_type": "code",
-      "norm_label": "posopeningdialog.vue",
-      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/PosOpeningDialog.vue",
-      "source_location": "L1"
+      "norm_label": "selectedstatuses",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L198"
     },
     {
-      "id": "tech4all_standard_pos_public_js_posapp_indexeddb",
-      "label": "indexedDB.js",
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_selectedtypes",
+      "label": "selectedTypes",
       "_origin": "ast",
       "community": 26,
       "community_name": "OrderHistory.vue",
       "file_type": "code",
-      "norm_label": "indexeddb.js",
-      "source_file": "tech4all_standard_pos/public/js/posapp/indexedDB.js",
-      "source_location": "L1"
+      "norm_label": "selectedtypes",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L208"
     },
     {
-      "id": "tech4all_standard_pos_public_js_posapp_indexeddb_indexeddbservice",
-      "label": "indexedDBService",
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_statusoptions",
+      "label": "statusOptions",
       "_origin": "ast",
       "community": 26,
       "community_name": "OrderHistory.vue",
       "file_type": "code",
-      "norm_label": "indexeddbservice",
-      "source_file": "tech4all_standard_pos/public/js/posapp/indexedDB.js",
-      "source_location": "L9"
+      "norm_label": "statusoptions",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L197"
+    },
+    {
+      "id": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_typeoptions",
+      "label": "typeOptions",
+      "_origin": "ast",
+      "community": 26,
+      "community_name": "OrderHistory.vue",
+      "file_type": "code",
+      "norm_label": "typeoptions",
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L204"
     },
     {
       "id": "tech4all_standard_pos_public_js_posapp_printing",
@@ -10234,15 +10300,15 @@
       "source_location": "L17"
     },
     {
-      "id": "vuetify_project_package_devdependencies_eslint",
-      "label": "eslint",
+      "id": "vuetify_project_package_devdependencies_eslint_plugin_promise",
+      "label": "eslint-plugin-promise",
       "_origin": "ast",
       "community": 6,
       "community_name": "devDependencies",
       "file_type": "code",
-      "norm_label": "eslint",
+      "norm_label": "eslint-plugin-promise",
       "source_file": "vuetify-project/package.json",
-      "source_location": "L19"
+      "source_location": "L24"
     },
     {
       "id": "vuetify_project_package_devdependencies_eslint_plugin_vue",
@@ -10300,15 +10366,15 @@
       "source_location": "L32"
     },
     {
-      "id": "eslint",
-      "label": "eslint",
+      "id": "eslint_plugin_promise",
+      "label": "eslint-plugin-promise",
       "_origin": "ast",
       "community": 6,
       "community_name": "devDependencies",
       "file_type": "concept",
-      "norm_label": "eslint",
+      "norm_label": "eslint-plugin-promise",
       "source_file": "vuetify-project/package.json",
-      "source_location": "L19"
+      "source_location": "L24"
     },
     {
       "id": "eslint_plugin_vue",
@@ -14749,7 +14815,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L257",
+      "source_location": "L258",
       "weight": 1.0
     },
     {
@@ -14821,7 +14887,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L156",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -14833,7 +14899,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L157",
+      "source_location": "L179",
       "weight": 1.0
     },
     {
@@ -15433,7 +15499,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/App.vue",
-      "source_location": "L14",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -15445,7 +15511,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/App.vue",
-      "source_location": "L15",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -15457,7 +15523,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L256",
+      "source_location": "L257",
       "weight": 1.0
     },
     {
@@ -15469,7 +15535,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L257",
+      "source_location": "L258",
       "weight": 1.0
     },
     {
@@ -15649,7 +15715,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L156",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -15661,7 +15727,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L157",
+      "source_location": "L179",
       "weight": 1.0
     },
     {
@@ -17272,7 +17338,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/App.vue",
-      "source_location": "L23",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -17294,7 +17360,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L264",
+      "source_location": "L265",
       "weight": 1.0
     },
     {
@@ -17800,7 +17866,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L159",
+      "source_location": "L181",
       "weight": 1.0
     },
     {
@@ -17811,7 +17877,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L168",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -17822,7 +17888,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L169",
+      "source_location": "L191",
       "weight": 1.0
     },
     {
@@ -17833,7 +17899,73 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L170",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "target": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_searchtext",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L196",
+      "weight": 1.0
+    },
+    {
+      "source": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "target": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_statusoptions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "target": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_selectedstatuses",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "target": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_typeoptions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "target": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_selectedtypes",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory",
+      "target": "tech4all_standard_pos_public_js_posapp_components_zarapos_orderhistory_filteredorders",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
+      "source_location": "L219",
       "weight": 1.0
     },
     {
@@ -17844,7 +17976,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L172",
+      "source_location": "L242",
       "weight": 1.0
     },
     {
@@ -17855,7 +17987,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L177",
+      "source_location": "L247",
       "weight": 1.0
     },
     {
@@ -17866,7 +17998,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue",
-      "source_location": "L189",
+      "source_location": "L271",
       "weight": 1.0
     },
     {
@@ -24446,7 +24578,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L488",
+      "source_location": "L489",
       "weight": 1.0
     },
     {
@@ -24458,7 +24590,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L489",
+      "source_location": "L490",
       "weight": 1.0
     },
     {
@@ -24542,7 +24674,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L305",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -24554,7 +24686,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L346",
+      "source_location": "L347",
       "weight": 1.0
     },
     {
@@ -24566,7 +24698,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue",
-      "source_location": "L475",
+      "source_location": "L476",
       "weight": 1.0
     },
     {
@@ -24607,5 +24739,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "15a2441c7baf194f69850186dbeebf0d4746c890"
+  "built_at_commit": "3b9c27423740811c8fe38cd9fd2c0977f1229fd3"
 }

@@ -102,10 +102,10 @@
     "semantic_hash": "0188754dbc91120f82b81799cb269ecd"
   },
   "tech4all_standard_pos/public/js/posapp/App.vue": {
-    "mtime": 1746978820.0,
-    "seen": 1787215177.0610218,
-    "ast_hash": "4d62d1e5a4edf7ab77bad8898f17cffc",
-    "semantic_hash": "4d62d1e5a4edf7ab77bad8898f17cffc"
+    "mtime": 1787239989.5908644,
+    "seen": 1787240035.2479134,
+    "ast_hash": "075257158b73d9b77d8f61cca5ed7154",
+    "semantic_hash": ""
   },
   "tech4all_standard_pos/public/js/posapp/CurrencyFormat.js": {
     "mtime": 1746978820.0,
@@ -126,10 +126,10 @@
     "semantic_hash": "469881438da1ef438a6be9d72596310c"
   },
   "tech4all_standard_pos/public/js/posapp/components/Navbar1.vue": {
-    "mtime": 1782075528.0,
-    "seen": 1787215177.0610433,
-    "ast_hash": "5e2fc4b13e87c16f608ac50903027a37",
-    "semantic_hash": "5e2fc4b13e87c16f608ac50903027a37"
+    "mtime": 1787239994.1139646,
+    "seen": 1787240035.2483087,
+    "ast_hash": "bf2ec59e5ce636361d477096a82ffb99",
+    "semantic_hash": ""
   },
   "tech4all_standard_pos/public/js/posapp/components/zaraPos/Customer.vue": {
     "mtime": 1782075528.0,
@@ -156,15 +156,15 @@
     "semantic_hash": "24f897e804b880fadd67d6c46fc0eeca"
   },
   "tech4all_standard_pos/public/js/posapp/components/zaraPos/Home.vue": {
-    "mtime": 1785347460.0,
-    "seen": 1787215177.06107,
-    "ast_hash": "31f2e3fdc2fb296b77dc89304fc9a128",
-    "semantic_hash": "31f2e3fdc2fb296b77dc89304fc9a128"
+    "mtime": 1787240016.928784,
+    "seen": 1787240035.248851,
+    "ast_hash": "d84e177f6f22df13f99e0bddc4d72c1f",
+    "semantic_hash": ""
   },
   "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderHistory.vue": {
-    "mtime": 1787234278.2833693,
-    "seen": 1787234343.6842735,
-    "ast_hash": "81af7a4aafc9ab86dcdd519ae0248bd8",
+    "mtime": 1787236467.4163496,
+    "seen": 1787236499.5235748,
+    "ast_hash": "7b0071b16cb0b5e81f8a39386665913e",
     "semantic_hash": ""
   },
   "tech4all_standard_pos/public/js/posapp/components/zaraPos/OrderSummary.vue": {
@@ -216,9 +216,9 @@
     "semantic_hash": "2628aab20836ac0f8a57d6f317544b49"
   },
   "tech4all_standard_pos/public/js/posapp/indexedDB.js": {
-    "mtime": 1787234211.056427,
-    "seen": 1787234343.6871586,
-    "ast_hash": "dae12127d911e2fb061fbd39a1b56fc5",
+    "mtime": 1787238990.083693,
+    "seen": 1787239011.8700066,
+    "ast_hash": "b9a2c59c237f5b62bd1f4a8dfa6bcf8e",
     "semantic_hash": ""
   },
   "tech4all_standard_pos/public/js/posapp/kotPrint.js": {

@@ -31,13 +31,20 @@ def before_submit(doc, method):
         if pos_profile:
             if doc.cost_center != pos_profile.cost_center:
                 doc.cost_center = pos_profile.cost_center
-    if doc.is_pos:    
+    if doc.is_pos:
         if doc.pos_profile:
-            branch = frappe.get_doc(
+            # frappe.get_doc(doctype, filters) raises DoesNotExistError when
+            # nothing matches (it doesn't return None/falsy like get_list
+            # does) - look up the name safely first so a POS Profile with no
+            # linked Branch just skips this block instead of blocking every
+            # submission for that profile.
+            branch_name = frappe.db.get_value(
                 "Branch",
-                {"pos_profile": ["like", f"%{doc.pos_profile}%"]}
+                {"pos_profile": ["like", f"%{doc.pos_profile}%"]},
+                "name"
             )
-            if branch:
+            if branch_name:
+                branch = frappe.get_doc("Branch", branch_name)
                 doc.custom_branch = branch.name
                 
                 qr_generator = frappe.db.get_value(

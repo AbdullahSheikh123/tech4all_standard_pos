@@ -1,7 +1,7 @@
 # Graph Report - tech4all_standard_pos  (2026-08-20)
 
 ## Corpus Check
-- 236 files · ~99,268 words
+- 236 files · ~99,546 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `15a2441c`
+- Built from commit: `3b9c2742`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -134,7 +134,7 @@
 - eslint-plugin-import
 - eslint-plugin-n
 - eslint-plugin-node
-- eslint-plugin-promise
+- eslint-config-standard
 - get_app_branch
 - get_root_of
 - get_version
@@ -145,7 +145,7 @@
 - pages/README.md
 - plugins/README.md
 - styles/README.md
-- eslint
+- eslint-plugin-promise
 
 ## God Nodes (most connected - your core abstractions)
 1. `loads()` - 28 edges
@@ -202,7 +202,7 @@ Nodes (22): add_loyalty_point(), auto_set_delivery_charges(), before_cancel(), b
 
 ### Community 6 - "devDependencies"
 Cohesion: 0.15
-Nodes (13): eslint-config-standard, eslint-plugin-vue, sass, unplugin-vue-router, vite, devDependencies, eslint-config-standard, eslint-plugin-vue (+5 more)
+Nodes (13): eslint, eslint-plugin-vue, sass, unplugin-vue-router, vite, devDependencies, eslint, eslint-plugin-vue (+5 more)
 
 ### Community 7 - "POSClosingShift"
 Cohesion: 0.16

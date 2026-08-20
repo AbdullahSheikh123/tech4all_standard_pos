@@ -69,9 +69,10 @@
     <!-- Navigation Drawer -->
 
     <v-navigation-drawer
-      style="background-color: #0d1821; width: 63px"
+      style="background-color: #0d1821"
       permanent
       rail
+      rail-width="64"
     >
       <v-list-item>
         <!-- <v-img

@@ -6,13 +6,13 @@
     <PosClosingDialog />
     <!-- product Items row -->
     <v-row class="pos-content" v-show="!dialog">
-      <v-col cols="12" md="8" class="pos-products-column">
+      <v-col cols="12" md="8" lg="8" xl="9" class="pos-products-column">
         <ProductList v-show="screen === 0" />
         <Payment v-show="screen === 1" />
         <OrderHistory v-show="screen === 2" />
         <HoldOrder v-show="screen === 3" />
       </v-col>
-      <v-col cols="12" md="4" class="pos-summary-column">
+      <v-col cols="12" md="4" lg="4" xl="3" class="pos-summary-column">
         <OrderSummary />
       </v-col>
     </v-row>
@@ -327,7 +327,7 @@ onUnmounted(() => {
 }
 
 .pos-shell {
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 55px);
   padding: 12px 16px 16px;
 }
 
@@ -340,9 +340,22 @@ onUnmounted(() => {
   padding: 6px;
 }
 
+/* Tablet portrait / small laptop - cart column stacks below products
+   (handled by cols="12" md="8"/"4" above), just tighten the outer gutters. */
 @media (max-width: 959px) {
   .pos-shell {
     padding: 8px;
+  }
+}
+
+/* Phone-width - drop gutters further so cards/buttons keep their own room */
+@media (max-width: 599px) {
+  .pos-shell {
+    padding: 4px;
+  }
+  .pos-products-column,
+  .pos-summary-column {
+    padding: 4px;
   }
 }
 

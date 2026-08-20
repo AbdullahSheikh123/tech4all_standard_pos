@@ -1,10 +1,8 @@
 <template>
   <v-app>
     <Navbar1 />
-    <v-main class="pt-0" style="background: #f4f4f4">
-      <v-container fluid>
-        <POS />
-      </v-container>
+    <v-main class="pt-0 pos-main" style="background: #f4f4f4">
+      <POS />
     </v-main>
   </v-app>
 </template>
@@ -40,5 +38,11 @@ export default {
 <style>
 .border-16 {
   border-radius: 16px !important;
+}
+/* v-container (removed above) was the source of unwanted default padding
+   on all sides; v-main itself adds none beyond the automatic layout offset
+   for the app-bar/nav-drawer, but this keeps it explicit and future-proof. */
+.pos-main {
+  padding: 0 !important;
 }
 </style>
