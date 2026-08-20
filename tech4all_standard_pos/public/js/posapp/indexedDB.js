@@ -65,8 +65,29 @@ const indexedDBService = {
         reject(event.target.errorCode);
       };
 
+      // Fires when this tab's version-upgrade open() is blocked by another
+      // tab/window still holding an open connection at the old DB_VERSION.
+      // Without this, the promise never settles and every caller (Sale
+      // Orders screen, product list sync, etc.) hangs forever ("buffering").
+      // Reject so callers' existing catch blocks handle it instead of
+      // spinning indefinitely.
+      request.onblocked = () => {
+        console.warn(
+          'IndexedDB upgrade blocked by another open tab of this app. ' +
+          'Close other tabs/windows running this POS and retry.'
+        );
+        reject(new Error('indexeddb-blocked'));
+      };
+
       request.onsuccess = (event) => {
         db = event.target.result;
+        // If another tab later needs to upgrade the DB, proactively close
+        // this connection instead of blocking that tab's open() the same
+        // way - self-heals the problem above for every future upgrade once
+        // this fix is loaded.
+        db.onversionchange = () => {
+          db.close();
+        };
         resolve(db);
       };
     });
