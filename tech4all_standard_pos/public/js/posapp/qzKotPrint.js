@@ -71,7 +71,11 @@ function ensureQzConnected(host, branch) {
 
 function getItemFromOfflineDb(itemCode) {
     return new Promise((resolve, reject) => {
-        const dbRequest = indexedDB.open("OfflineDB", 1);
+        // No version pinned here on purpose - this is a read-only helper, not
+        // the schema owner (that's indexedDB.js, currently at DB_VERSION 2).
+        // Opening with a hardcoded version that's behind the DB's actual
+        // current version throws VersionError on every call.
+        const dbRequest = indexedDB.open("OfflineDB");
 
         dbRequest.onsuccess = (event) => {
             const db = event.target.result;
