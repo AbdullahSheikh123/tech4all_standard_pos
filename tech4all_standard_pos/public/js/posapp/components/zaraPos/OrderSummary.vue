@@ -76,7 +76,8 @@
     <v-row class="px-4">
       <v-col cols="8" class="" style="  height: 64px;">
         <v-autocomplete :custom-filter="customFilter" :items="customers" item-title="customer_name" item-value="name"
-          label="Select Customer" v-model="selectedCustomer" variant="outlined" class="mr-2"></v-autocomplete>
+          label="Select Customer" v-model="selectedCustomer" v-model:search="customerSearchQuery" variant="outlined"
+          class="mr-2"></v-autocomplete>
       </v-col>
       <v-col cols="4" class="" style="  height: 64px;">
         <v-btn block class="white--text font-weight-bold payment-button" height="52" color="#21A0A0"
@@ -328,6 +329,10 @@ const paymentModes = ref([
   // },
 ]);
 const selectedCustomer = ref('');
+// Mirrors the "Select Customer" v-autocomplete's own search text (v-model:search)
+// so addNewCustomer() can carry over whatever the cashier already typed - e.g. a
+// phone number that didn't match anyone - into the new-customer form.
+const customerSearchQuery = ref('');
 const customers = ref([
   // Example customer list
   // { text: "John Doe", value: 1 },
@@ -525,10 +530,30 @@ const openDialog = (product, flag) => {
   }
 };
 const addNewCustomer = () => {
+  // Carry over whatever the cashier already typed into "Select Customer" -
+  // typically a phone number that didn't match anyone - so they don't have
+  // to retype it into the new-customer form.
+  if (customerSearchQuery.value) {
+    formData.value.phone = customerSearchQuery.value;
+  }
   showDialog.value = true;
 }
 
 const submitCustomerDialog = async () => {
+  // customer_group is required (create_customer_with_address falls back to
+  // "All Customer Groups" only when it receives none at all, but the POS UI
+  // always sends pos_profile.customer_groups[0] - so without at least one
+  // group configured on the POS Profile there's nothing to send, and the
+  // cashier needs to be told why "Save" isn't doing anything rather than it
+  // silently failing on customer_groups[0] being undefined.
+  if (!pos_profile.value.customer_groups || !pos_profile.value.customer_groups.length) {
+    frappe.utils.play_sound('error');
+    eventBus.emit("show_mesage", {
+      text: `Please add a Customer Group in POS Profile`,
+      color: "error",
+    });
+    return;
+  }
   try {
     const args = {
       customer_id: '',
@@ -538,6 +563,9 @@ const submitCustomerDialog = async () => {
       email_id: formData.value.email,
       post_code: formData.post_code,
       custom_cnic__ntn: formData.cnic_ntn,
+      // Multiple Customer Groups can be configured on the POS Profile (the
+      // dropdown then loads customers from all of them, see get_customer_groups)
+      // but a new customer is always created into just the first/top one.
       customer_group: pos_profile.value.customer_groups[0].customer_group,
       method: 'create',
       pos_profile_doc: pos_profile.value,
@@ -549,7 +577,10 @@ const submitCustomerDialog = async () => {
     });
     console.log("res", response)
     if (response.message) {
-      selectedCustomer.value = response.message.name
+      // Deliberately not selecting the newly created customer here - the
+      // active customer for this sale should stay whatever the POS Profile's
+      // default customer is (set from send_pos_profile) unless the cashier
+      // explicitly picks someone from the dropdown themselves.
       eventBus.emit("show_mesage", {
         text: `Customer created successfully...`,
         color: "success",
@@ -599,12 +630,16 @@ const getCustomerNames = (profile) => {
   });
 };
 const customFilter = (itemTitle, queryText, item) => {
-  const textOne = item.raw.name.toLowerCase()
-  const textTwo = item.raw.mobile_no ? item.raw.mobile_no.toLowerCase() : ""; // Handle null or undefined
+  // item.raw.name is the Customer doctype's own record id (e.g. "CUST-00001"),
+  // not what's shown in the dropdown (item-title="customer_name") - matching
+  // against it meant typing an actual customer's name could never find them
+  // unless the site's Customer naming happens to mirror customer_name 1:1.
+  const nameText = item.raw.customer_name ? item.raw.customer_name.toLowerCase() : "";
+  const mobileText = item.raw.mobile_no ? item.raw.mobile_no.toLowerCase() : ""; // Handle null or undefined
   const searchText = queryText.toLowerCase()
 
-  return textOne.indexOf(searchText) > -1 ||
-    textTwo.indexOf(searchText) > -1
+  return nameText.indexOf(searchText) > -1 ||
+    mobileText.indexOf(searchText) > -1
 }
 const createPreInvoice = async () => {
   if (items.value.length > 0) {
@@ -1392,6 +1427,13 @@ onMounted(() => {
     pos_profile.value = profile;
     paymentModes.value = profile.payments;
     selectedCustomer.value = pos_profile.value.customer;
+    // getCustomerNames() was previously only ever called after creating a
+    // brand-new customer (see addNewCustomer's success handler below), so
+    // the "Select Customer" dropdown started every session empty and only
+    // ever populated as a side effect of adding someone new - loading it
+    // here, as soon as the POS profile itself is known, is what actually
+    // fills it for existing customers.
+    getCustomerNames(profile);
 
     const hasDefaultPayment = paymentModes.value.some(
       (mode) => mode.default === 1 || mode.selected
