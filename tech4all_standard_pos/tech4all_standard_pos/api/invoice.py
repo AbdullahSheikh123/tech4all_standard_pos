@@ -16,10 +16,29 @@ from tech4all_standard_pos.tech4all_standard_pos.doctype.delivery_charges.delive
 
 def validate(doc, method):
     validate_shift(doc)
+    set_business_date(doc)
     set_patient(doc)
     auto_set_delivery_charges(doc)
     calc_delivery_charges(doc)
     set_mode_of_payment(doc)
+
+
+def set_business_date(doc):
+    """Trading-day the invoice belongs to, separate from posting_date (which
+    stays the real transaction timestamp for accounting/tax purposes and
+    keeps rolling to the next calendar day past midnight). Derived from the
+    POS Opening Shift - validate_shift() above guarantees posa_pos_opening_shift
+    is set by the time this runs for any is_pos invoice - so an order rung up
+    at 2am still reports under the night the shift opened, not tomorrow.
+    """
+    if doc.get("posa_pos_opening_shift"):
+        doc.custom_business_date = frappe.get_cached_value(
+            "POS Opening Shift", doc.posa_pos_opening_shift, "posting_date"
+        )
+    else:
+        # No shift context (e.g. a non-POS invoice) - fall back to the real
+        # posting date rather than leaving it blank.
+        doc.custom_business_date = doc.posting_date
 
 
 def set_mode_of_payment(doc):
@@ -186,6 +205,10 @@ def create_sales_order(doc):
         sales_order_doc = make_sales_order(doc.name)
         if sales_order_doc:
             sales_order_doc.posa_notes = doc.posa_notes
+            # get_mapped_doc's field-name copy can't be relied on here since
+            # source_name is re-fetched from the DB and doc's business date
+            # was only just set in-memory this same validate() pass - force it.
+            sales_order_doc.custom_business_date = doc.custom_business_date
             sales_order_doc.flags.ignore_permissions = True
             sales_order_doc.flags.ignore_account_permission = True
             sales_order_doc.save()

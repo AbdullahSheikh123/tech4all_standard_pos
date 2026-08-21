@@ -2450,6 +2450,24 @@ def _set_sales_order_items_from_pos(so, items, warehouse=None):
         )
 
 
+def get_business_date_for_shift(pos_opening_shift):
+    """The restaurant trading day a POS document belongs to, independent of
+    the actual calendar date it was created on.
+
+    A restaurant shift routinely runs past midnight (e.g. opens 6pm, trades
+    until 4am), but every order rung up in that window should still report
+    under the night the shift was opened, not the next calendar day. POS
+    Opening Shift.posting_date is fixed once, at the moment the shift opens
+    (see check_opening_entry() above), so it's the right anchor for this -
+    unlike posting_date on the invoice/order itself, which must stay the real
+    transaction timestamp for accounting and tax purposes and is rebuilt from
+    the device clock on every submit.
+    """
+    if not pos_opening_shift:
+        return None
+    return frappe.get_cached_value("POS Opening Shift", pos_opening_shift, "posting_date")
+
+
 @frappe.whitelist()
 def create_sales_order_from_pos(data):
     """Create a draft Sales Order from the current POS cart - used by KOT Print
@@ -2468,6 +2486,13 @@ def create_sales_order_from_pos(data):
     so.transaction_date = nowdate()
     so.delivery_date = nowdate()
     so.order_type = "Sales"
+    # posa_pos_opening_shift is sent through in `data` (get_invoice_doc() in
+    # OrderSummary.vue) even though Sales Order has no such link field itself -
+    # it's only needed here to resolve the trading day. Falls back to today's
+    # date if the cart somehow has no shift context.
+    so.custom_business_date = (
+        get_business_date_for_shift(data.get("posa_pos_opening_shift")) or nowdate()
+    )
 
     # data.warehouse is the POS Profile's warehouse as already cached
     # client-side (get_invoice_doc() in OrderSummary.vue) - trusted first so
@@ -2497,6 +2522,10 @@ def update_sales_order_from_pos(name, data):
         frappe.throw(
             _("Sales Order {0} is already submitted and can no longer be edited from KOT Print.").format(name)
         )
+
+    so.custom_business_date = (
+        get_business_date_for_shift(data.get("posa_pos_opening_shift")) or so.custom_business_date
+    )
 
     # data.warehouse is the POS Profile's warehouse as already cached
     # client-side (get_invoice_doc() in OrderSummary.vue) - trusted first so
