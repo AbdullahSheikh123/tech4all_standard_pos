@@ -153,7 +153,7 @@ def close_linked_sales_order(doc):
     Completed here, at final payment, so it drops off the open Sale Orders
     screen once it's been paid.
     """
-    if not doc.sales_order:
+    if not doc.get("sales_order"):
         return
 
     sales_order = frappe.get_doc("Sales Order", doc.sales_order)
@@ -194,6 +194,20 @@ def add_loyalty_point(invoice_doc):
 
 
 def create_sales_order(doc):
+    # Only one Sales Order is ever generated per invoice, and only while the
+    # invoice can still change - once it's submitted or fully paid, that
+    # window is closed for good. before_submit is the only caller today, but
+    # this guards against it running twice for the same invoice too (e.g. a
+    # background job retried after an earlier failure downstream, like the
+    # close_linked_sales_order crash), which would otherwise create a second,
+    # duplicate Sales Order the next time this invoice is (re)submitted.
+    if doc.docstatus == 1:
+        return
+    if doc.paid_amount and doc.grand_total and flt(doc.paid_amount) >= flt(doc.grand_total):
+        return
+    if any(item.sales_order for item in doc.items):
+        return
+
     if (
         doc.posa_pos_opening_shift
         and doc.pos_profile
@@ -384,12 +398,20 @@ def calc_delivery_charges(doc):
 
 
 def validate_shift(doc):
-    for item in doc.items:
-        # Check if the item has a sales_order field with data
-        if item.sales_order:
-            # Add the sales_order to the set (to ensure unique values)
-            doc.sales_order = item.sales_order
-            break
+    # Only back-fill from an item's own sales_order (the standard ERPNext
+    # Sales Invoice Item link, set e.g. by create_sales_order() backfilling
+    # doc.items[i].sales_order after invoicing generates a future delivery
+    # order) as a fallback - never stomp doc.sales_order if it's already set,
+    # since that's a different, unrelated link: the KOT-created draft Sales
+    # Order this invoice was checked out from (see OrderSummary.vue's
+    # get_invoice_doc and close_linked_sales_order below), which the client
+    # sets directly and must not be overwritten by whichever item happens to
+    # have its own sales_order populated.
+    if not doc.get("sales_order"):
+        for item in doc.items:
+            if item.sales_order:
+                doc.sales_order = item.sales_order
+                break
             
     # Fetch current user if posa_pos_opening_shift is empty
     if doc.get("is_pos"):

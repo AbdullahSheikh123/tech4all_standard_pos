@@ -76,8 +76,8 @@
     <v-row class="px-4">
       <v-col cols="8" class="" style="  height: 64px;">
         <v-autocomplete :custom-filter="customFilter" :items="customers" item-title="customer_name" item-value="name"
-          label="Select Customer" v-model="selectedCustomer" v-model:search="customerSearchQuery" variant="outlined"
-          class="mr-2"></v-autocomplete>
+          label="Select Customer" v-model="selectedCustomer" @update:search="onCustomerSearchUpdate"
+          variant="outlined" class="mr-2"></v-autocomplete>
       </v-col>
       <v-col cols="4" class="" style="  height: 64px;">
         <v-btn block class="white--text font-weight-bold payment-button" height="52" color="#21A0A0"
@@ -329,10 +329,25 @@ const paymentModes = ref([
   // },
 ]);
 const selectedCustomer = ref('');
-// Mirrors the "Select Customer" v-autocomplete's own search text (v-model:search)
-// so addNewCustomer() can carry over whatever the cashier already typed - e.g. a
-// phone number that didn't match anyone - into the new-customer form.
+// Tracks the last non-empty text typed into the "Select Customer" field, so
+// addNewCustomer() can carry it over into the new-customer form when nothing
+// matched. Deliberately NOT a v-model:search two-way binding - VAutocomplete
+// resets its own internal search text to '' on blur whenever nothing selected
+// matches it (see its isFocused watcher), and clicking "New" blurs the field
+// before the click handler runs, so a plain v-model would already be wiped
+// by the time addNewCustomer() reads it. Only keeping non-empty updates here
+// sidesteps that reset instead of fighting it.
 const customerSearchQuery = ref('');
+const onCustomerSearchUpdate = (val) => {
+  if (val) {
+    customerSearchQuery.value = val;
+  }
+};
+// Once a real selection is made, forget the stale search text so a later
+// "New" click (after a successful match) doesn't reuse an old query.
+watch(selectedCustomer, () => {
+  customerSearchQuery.value = '';
+});
 const customers = ref([
   // Example customer list
   // { text: "John Doe", value: 1 },
