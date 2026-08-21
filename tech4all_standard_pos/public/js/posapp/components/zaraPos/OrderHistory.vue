@@ -5,6 +5,17 @@
         <h3>Sale Orders <span class="text-grey text-body-1">{{ filteredOrders.length }}/{{ orders.length }}</span></h3>
       </v-col>
       <v-col cols="9" class="d-flex justify-end align-center flex-wrap ga-2 pr-4">
+        <v-btn
+          variant="outlined"
+          size="large"
+          class="text-capitalize mr-2"
+          color="#21A0A0"
+          style="border-radius: 8px"
+          @click="addItem()"
+        >
+          <v-icon class="mr-2">mdi-plus</v-icon>
+          <p class="mt-2 category-p">Add Item</p>
+        </v-btn>
         <v-text-field
           v-model="searchText"
           density="compact"
@@ -243,6 +254,19 @@ const showOrderDetail = (order) => {
   selectedOrder.value = order;
   console.log("selectedOrder.value", selectedOrder.value);
   eventBus.emit("load-sale-order", order);
+};
+// Same as HoldOrders.vue's addItem() - load-sale-order (above) already
+// puts the selected order's items in the cart, so this just navigates back
+// to the product menu to add more, same guard against nothing selected yet.
+const addItem = () => {
+  if (selectedOrder.value) {
+    eventBus.emit("open-product-menu");
+  } else {
+    eventBus.emit("show_mesage", {
+      text: "Please select a sale order first",
+      color: "error",
+    });
+  }
 };
 const formatDeliveryDate = (date) => {
   const options = {
