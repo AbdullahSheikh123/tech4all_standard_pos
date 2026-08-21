@@ -577,10 +577,10 @@ const submitCustomerDialog = async () => {
     });
     console.log("res", response)
     if (response.message) {
-      // Deliberately not selecting the newly created customer here - the
-      // active customer for this sale should stay whatever the POS Profile's
-      // default customer is (set from send_pos_profile) unless the cashier
-      // explicitly picks someone from the dropdown themselves.
+      // A newly created customer becomes the active one for this sale -
+      // the cashier just went to the trouble of adding them, so use them
+      // immediately rather than leaving the POS Profile's default selected.
+      selectedCustomer.value = response.message.name
       eventBus.emit("show_mesage", {
         text: `Customer created successfully...`,
         color: "success",
