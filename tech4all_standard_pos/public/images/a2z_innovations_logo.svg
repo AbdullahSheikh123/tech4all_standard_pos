@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="237" viewBox="0 0 360 237" role="img" aria-label="A2Z Innovations logo mark">
+  <title>A2Z Innovations Logo Mark</title>
+  <defs>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke="#39E86A" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
+    <!-- Upper signal strokes -->
+    <path d="M126 35 C163 30 179 60 151 85 C144 91 137 96 129 101" stroke-width="6" opacity="0.58"/>
+    <path d="M165 36 C194 44 207 75 187 102 C184 107 180 111 176 114" stroke-width="6" opacity="0.55"/>
+    <path d="M199 42 C230 55 240 84 218 107 C214 112 209 116 204 119" stroke-width="6" opacity="0.52"/>
+
+    <!-- Base sweep strokes -->
+    <path d="M67 139 C104 175 188 172 258 143" stroke-width="6" opacity="0.55"/>
+    <path d="M75 159 C122 190 206 184 281 150" stroke-width="8"/>
+    <path d="M86 181 C141 207 229 198 290 163" stroke-width="8"/>
+    <path d="M112 204 C163 218 228 213 278 193" stroke-width="8"/>
+  </g>
+
+  <g fill="#39E86A" filter="url(#softGlow)">
+    <!-- Nodes -->
+    <circle cx="129" cy="100" r="11"/>
+    <circle cx="176" cy="114" r="11"/>
+    <circle cx="205" cy="119" r="11"/>
+    <circle cx="258" cy="143" r="11"/>
+    <circle cx="282" cy="150" r="10"/>
+    <circle cx="290" cy="163" r="10"/>
+    <circle cx="278" cy="193" r="10"/>
+  </g>
+</svg>

@@ -8,6 +8,14 @@ app_publisher = "Usman Younas"
 app_description = "Tech4All Standard POS"
 app_email = "usman.tech4all@gmail.com"
 app_license = "MIT"
+# Without this, Desk's app-switcher sidebar (sidebar_header.js::add_app_item)
+# has no logo to put in this app's <img src> and renders it as the literal
+# string "undefined", which the browser then requests as /undefined (404).
+# public/images/a2z_innovations_logo.svg is this app's own copy of the mark
+# a2z_designs also ships (see its www/login.html favicon) - copied in rather
+# than referenced cross-app so this doesn't depend on a2z_designs being
+# installed on whatever site runs this app.
+app_logo_url = "/assets/tech4all_standard_pos/images/a2z_innovations_logo.svg"
 required_apps = ["erpnext"]
 
 # Includes in <head>
