@@ -1,4 +1,4 @@
-// Builds the default KOT ticket HTML for a given set of items. Shared by
+2// Builds the default KOT ticket HTML for a given set of items. Shared by
 // the print-dialog popup below and by qzKotPrint.js's silent QZ Tray path,
 // so both render the exact same layout - QZ Tray printing isn't a
 // different ticket design, just a different delivery mechanism for it.
@@ -119,6 +119,23 @@ export function buildKotHtml(offlineData) {
 export async function printKot(offlineData) {
     try {
         const newWindow = window.open("", "_blank");
+        if (!newWindow) {
+            // window.open() returns null when the browser's popup blocker
+            // steps in - happens here because printKotSmart() runs several
+            // awaits (frappe.call, IndexedDB lookups) before falling back
+            // to this popup, so by the time we get here it's no longer
+            // treated as a direct, trusted response to the click.
+            console.error(
+                "printKot: window.open() was blocked by the browser's popup blocker."
+            );
+            frappe.show_alert({
+                message: __(
+                    "KOT print popup was blocked by your browser. Please allow popups for this site and try again."
+                ),
+                indicator: "red",
+            });
+            return;
+        }
         newWindow.document.write(buildKotHtml(offlineData));
         newWindow.document.close();
 
