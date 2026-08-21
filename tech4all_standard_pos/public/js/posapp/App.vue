@@ -40,9 +40,9 @@ export default {
   border-radius: 16px !important;
 }
 /* v-container (removed above) was the source of unwanted default padding
-   on all sides; v-main itself adds none beyond the automatic layout offset
-   for the app-bar/nav-drawer, but this keeps it explicit and future-proof. */
-.pos-main {
-  padding: 0 !important;
-}
+   on all sides. v-main needs no extra rule here: it already adds no content
+   padding of its own, and forcing `padding: 0 !important` on it (as this
+   rule used to) clobbers the automatic inline padding-left/padding-top
+   offset Vuetify computes for the rail nav-drawer and app-bar, which is
+   what was pushing/clipping the POS content under the left sidebar. */
 </style>
