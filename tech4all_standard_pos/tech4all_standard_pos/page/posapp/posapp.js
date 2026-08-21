@@ -34,18 +34,6 @@ function install_pos_fullscreen_styles() {
 			width: 0 !important;
 		}
 
-		/* Generic fallback: whatever sits next to body-sidebar-container in
-		   the DOM (its main-content sibling), regardless of that element's
-		   own class name in this Frappe version - reclaims the space the
-		   hidden sidebar/placeholder used to reserve without needing to name
-		   it specifically, same intent as the named .main-section rule below
-		   for older Frappe versions. */
-		body.${TECH4ALL_POS_FULLSCREEN_CLASS} .body-sidebar-container ~ * {
-			margin-left: 0 !important;
-			width: 100% !important;
-			max-width: none !important;
-		}
-
 		body.${TECH4ALL_POS_FULLSCREEN_CLASS} > .main-section,
 		body.${TECH4ALL_POS_FULLSCREEN_CLASS} .main-section {
 			margin-left: 0 !important;
