@@ -868,7 +868,7 @@
    "creation": "2026-08-22 00:00:00.000000",
    "default": null,
    "depends_on": null,
-   "description": "Sequential per-branch, per-business-day number printed on both the KOT ticket and the receipt. Copied from the linked Sales Order (sales_order field above) for a KOT-checkout sale; allocated fresh here for a walk-up sale with no KOT order behind it - see invoice.py::set_bill_no.",
+   "description": "Sequential per-branch, per-business-day number printed on both the KOT ticket and the receipt.",
    "docstatus": 0,
    "dt": "Sales Invoice",
    "fetch_from": null,
