@@ -93,9 +93,11 @@ function ensureQzConnected(host, branch) {
 function getItemFromOfflineDb(itemCode) {
     return new Promise((resolve, reject) => {
         // No version pinned here on purpose - this is a read-only helper, not
-        // the schema owner (that's indexedDB.js, currently at DB_VERSION 2).
-        // Opening with a hardcoded version that's behind the DB's actual
-        // current version throws VersionError on every call.
+        // the schema owner (that's indexedDB.js - see its own DB_VERSION,
+        // deliberately not duplicated as a number here since it changes
+        // independently of this file). Opening with a hardcoded version
+        // that's behind the DB's actual current version throws VersionError
+        // on every call.
         const dbRequest = indexedDB.open("OfflineDB");
 
         dbRequest.onsuccess = (event) => {
@@ -120,6 +122,62 @@ function getItemFromOfflineDb(itemCode) {
                     (dbRequest.error?.name + ": " + dbRequest.error?.message)
             );
     });
+}
+
+const KDS_STATIONS_CACHE_MAX_AGE_MS = 15 * 60 * 1000; // 15 min
+
+// Fast-load cache for get_kds_stations_for_branch, read/written with the
+// same unversioned indexedDB.open() pattern as getItemFromOfflineDb above
+// (see that function's comment - avoids a VersionError if this bundle and
+// indexedDB.js's DB_VERSION ever drift). This is config data (which printer
+// serves which kitchen station), not per-order data, so caching it doesn't
+// carry the same conflict risk as e.g. stock counts - the only real risk is
+// serving a stale printer assignment for up to maxAgeMs after someone
+// reassigns a station in the Desk, which just misroutes one ticket rather
+// than losing or duplicating a sale.
+function getKdsStationsFromCache(branch, maxAgeMs = KDS_STATIONS_CACHE_MAX_AGE_MS) {
+    return new Promise((resolve) => {
+        const dbRequest = indexedDB.open("OfflineDB");
+        dbRequest.onsuccess = (event) => {
+            const db = event.target.result;
+            try {
+                const transaction = db.transaction(["kds_stations"], "readonly");
+                const store = transaction.objectStore("kds_stations");
+                const request = store.get(branch);
+                request.onsuccess = () => {
+                    const record = request.result;
+                    if (!record || Date.now() - record.cached_at > maxAgeMs) {
+                        resolve(null);
+                        return;
+                    }
+                    resolve(record.stations);
+                };
+                request.onerror = () => resolve(null);
+            } catch (e) {
+                // e.g. "kds_stations" object store doesn't exist yet (older
+                // cached DB_VERSION) - just treat as a cache miss.
+                resolve(null);
+            }
+        };
+        dbRequest.onerror = () => resolve(null);
+    });
+}
+
+function saveKdsStationsToCache(branch, stations) {
+    const dbRequest = indexedDB.open("OfflineDB");
+    dbRequest.onsuccess = (event) => {
+        const db = event.target.result;
+        try {
+            const transaction = db.transaction(["kds_stations"], "readwrite");
+            transaction.objectStore("kds_stations").put({
+                branch,
+                stations,
+                cached_at: Date.now(),
+            });
+        } catch (e) {
+            console.error("[QZ KOT] Could not cache KDS stations:", e);
+        }
+    };
 }
 
 // Splits kot_items into { byStation, unmapped } using each item's
@@ -164,17 +222,23 @@ export async function printKotSmart(offlineData, branch) {
         return printKot(offlineData);
     }
 
-    let stations = [];
-    try {
-        const r = await frappe.call(
-            "tech4all_pos_general.api.qz_tray_api.get_kds_stations_for_branch",
-            { branch }
-        );
-        stations = r.message || [];
-    } catch (e) {
-        console.error("[QZ KOT] Could not load KDS stations for branch", branch, e);
+    let stations = await getKdsStationsFromCache(branch);
+    if (stations) {
+        console.log("[QZ KOT] configured stations for this branch (cached):", stations);
+    } else {
+        stations = [];
+        try {
+            const r = await frappe.call(
+                "tech4all_pos_general.api.qz_tray_api.get_kds_stations_for_branch",
+                { branch }
+            );
+            stations = r.message || [];
+            saveKdsStationsToCache(branch, stations);
+        } catch (e) {
+            console.error("[QZ KOT] Could not load KDS stations for branch", branch, e);
+        }
+        console.log("[QZ KOT] configured stations for this branch (fetched):", stations);
     }
-    console.log("[QZ KOT] configured stations for this branch:", stations);
 
     if (!stations.length) {
         console.warn(

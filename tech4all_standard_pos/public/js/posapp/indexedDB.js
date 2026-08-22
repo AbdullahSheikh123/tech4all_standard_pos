@@ -1,9 +1,12 @@
 const DB_NAME = 'OfflineDB';
 // Bumped 1 -> 2 to add the 'create_sales_order' store (KOT Print offline queue).
+// Bumped 2 -> 3 to add 'kds_stations' - a fast-load cache (not a queue) for
+// get_kds_stations_for_branch, which was being hit fresh from the server on
+// every single KOT print.
 // onupgradeneeded re-runs for existing browsers on this version bump and each
 // store is created only `if (!db.objectStoreNames.contains(...))`, so existing
 // stores/data are left untouched.
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 let db;
 
 const indexedDBService = {
@@ -57,6 +60,9 @@ const indexedDBService = {
         if (!db.objectStoreNames.contains("create_sales_order")) {
           const objectStore = db.createObjectStore("create_sales_order", { keyPath: 'id', autoIncrement: true });
           objectStore.createIndex('synced', 'synced', { unique: false });
+        }
+        if (!db.objectStoreNames.contains("kds_stations")) {
+          db.createObjectStore("kds_stations", { keyPath: "branch" });
         }
       };
 
@@ -794,6 +800,14 @@ clearCreateInvoice() {
         reject('Error fetching queued sales order: ' + event.target.errorCode);
     });
   },
+
+  // KDS station cache read/write lives in qzKotPrint.js itself (matching
+  // getItemFromOfflineDb's pattern there - a local, unversioned
+  // indexedDB.open, deliberately not this service's version-pinned
+  // openDatabase(), so that file can't throw a VersionError if its bundle
+  // and this one's DB_VERSION ever end up mismatched at runtime). The
+  // 'kds_stations' store above still needs to be declared here since this
+  // file owns the schema/upgrade path for the whole database.
 
 };
 
