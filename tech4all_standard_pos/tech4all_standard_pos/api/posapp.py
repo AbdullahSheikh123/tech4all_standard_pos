@@ -1237,7 +1237,7 @@ def submit_invoice(invoice, data,taxvalue):
             invoice_doc, data, is_payment_entry, total_cash, cash_account, payments
         )
 
-    return {"name": invoice_doc.name, "status": invoice_doc.docstatus}
+    return {"name": invoice_doc.name, "status": invoice_doc.docstatus, "bill_no": invoice_doc.bill_no}
 
 @frappe.whitelist()
 def sales_invoice(data, invoice=None, taxvalue=None):
@@ -1255,7 +1255,7 @@ def sales_invoice(data, invoice=None, taxvalue=None):
                 invoice_doc = frappe.get_doc("Sales Invoice", existing_invoice)
                 
                 if invoice_doc.docstatus == 1:  # If the invoice is submitted/paid
-                    return {"name": invoice_doc.name, "status": invoice_doc.docstatus}
+                    return {"name": invoice_doc.name, "status": invoice_doc.docstatus, "bill_no": invoice_doc.bill_no}
                 
                 invoice_doc.update(data)
             else:
@@ -1457,7 +1457,7 @@ def sales_invoice(data, invoice=None, taxvalue=None):
                 invoice_doc, data, is_payment_entry, total_cash, cash_account, payments
             )
 
-    return {"name": invoice_doc.name, "status": invoice_doc.docstatus}
+    return {"name": invoice_doc.name, "status": invoice_doc.docstatus, "bill_no": invoice_doc.bill_no}
 
 
 def set_batch_nos_for_bundels(doc, warehouse_field, throw=False):
@@ -2397,18 +2397,20 @@ def search_orders(company, currency, pos_profile=None, order_name=None):
     if order_name:
         filters["name"] = ["like", f"%{order_name}%"]
     
-    # Add POS Profile filter if provided
+    # Add branch filter if a POS Profile is given - resolved via
+    # custom_branch (POS Profile -> Branch, the same relationship
+    # get_next_bill_no/set_bill_no already use), not the old reverse lookup
+    # through Branch.pos_profile. That field is a single Link, not a table,
+    # so with one shared POS Profile per branch and every till logging into
+    # it, this and that would resolve to the same branch anyway today - but
+    # Branch.pos_profile silently returns no match (and so no branch filter
+    # at all, falling through to every order company-wide) for any site not
+    # already wired that way, which is exactly the kind of thing that looks
+    # like "sync between tills is broken" without actually erroring.
     if pos_profile:
-        # Fetch the branch linked to the provided pos_profile using the link field
-        branch_doc = frappe.get_list(
-            "Branch", 
-            filters={"pos_profile": pos_profile},
-            fields=["name"]
-        )
-        
-        if branch_doc:
-            # Add branch filter to the sales order
-            filters["branch"] = branch_doc[0].get("name")
+        branch = frappe.get_cached_value("POS Profile", pos_profile, "custom_branch")
+        if branch:
+            filters["branch"] = branch
     
     # Fetch the list of sales orders
     orders_list = frappe.get_list(
@@ -2468,6 +2470,54 @@ def get_business_date_for_shift(pos_opening_shift):
     return frappe.get_cached_value("POS Opening Shift", pos_opening_shift, "posting_date")
 
 
+def get_next_bill_no(branch, business_date):
+    """Atomically allocate the next Bill No for this branch's business day.
+
+    This is the one number printed on both the KOT ticket and the receipt,
+    so two tills at the same branch simultaneously issuing bills is exactly
+    the situation this has to be safe against - a plain "read the last
+    number, add 1, write it back" would race under real concurrent traffic
+    and hand out the same number twice. Instead this does the increment as a
+    single atomic round trip: INSERT ... ON DUPLICATE KEY UPDATE against the
+    (branch, business_date) row (name = "{branch}-{business_date}", which is
+    POS Bill Counter's actual primary key), using MySQL's LAST_INSERT_ID(expr)
+    trick to both perform the increment and read back the new value in one
+    statement - the row-level lock MySQL takes for the upsert is what makes
+    two concurrent callers serialize correctly instead of racing.
+
+    Resets to 1 automatically the first time this business_date is seen for
+    this branch (no separate "day close" step needed) since a new row is
+    inserted fresh for each new business_date.
+    """
+    if not branch or not business_date:
+        return None
+
+    counter_name = f"{branch}-{business_date}"
+    now = frappe.utils.now()
+    user = frappe.session.user
+
+    frappe.db.sql(
+        """
+        INSERT INTO `tabPOS Bill Counter`
+            (name, branch, business_date, last_bill_no, creation, modified, modified_by, owner, docstatus, idx)
+        VALUES
+            (%(name)s, %(branch)s, %(business_date)s, LAST_INSERT_ID(1), %(now)s, %(now)s, %(user)s, %(user)s, 0, 0)
+        ON DUPLICATE KEY UPDATE
+            last_bill_no = LAST_INSERT_ID(last_bill_no + 1),
+            modified = %(now)s,
+            modified_by = %(user)s
+        """,
+        {
+            "name": counter_name,
+            "branch": branch,
+            "business_date": business_date,
+            "now": now,
+            "user": user,
+        },
+    )
+    return frappe.db.sql("SELECT LAST_INSERT_ID()")[0][0]
+
+
 @frappe.whitelist()
 def create_sales_order_from_pos(data):
     """Create a draft Sales Order from the current POS cart - used by KOT Print
@@ -2493,6 +2543,15 @@ def create_sales_order_from_pos(data):
     so.custom_business_date = (
         get_business_date_for_shift(data.get("posa_pos_opening_shift")) or nowdate()
     )
+    # Bill No is assigned once, here, at KOT creation - never regenerated on
+    # a later edit/reprint (update_sales_order_from_pos doesn't touch it) or
+    # on the linked Sales Invoice (invoice.py::set_bill_no just copies this
+    # value across instead of allocating its own), so the same number prints
+    # on both the KOT ticket and the receipt.
+    branch = data.get("pos_profile") and frappe.get_cached_value(
+        "POS Profile", data.get("pos_profile"), "custom_branch"
+    )
+    so.bill_no = get_next_bill_no(branch, so.custom_business_date)
 
     # data.warehouse is the POS Profile's warehouse as already cached
     # client-side (get_invoice_doc() in OrderSummary.vue) - trusted first so

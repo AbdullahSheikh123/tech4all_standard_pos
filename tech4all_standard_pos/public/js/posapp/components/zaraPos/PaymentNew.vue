@@ -1001,6 +1001,12 @@ const submitSaleInvoice = async (
 
           if (response.message) {
             invoice_doc.value.name = response.message.name;
+            invoice_doc.value.bill_no = response.message.bill_no;
+            // Sales Order (KOT) already shows its own Bill No via
+            // saleOrderPayload in OrderSummary.vue - this covers the
+            // walk-up-sale case, where the invoice is the first (and only)
+            // place a number gets assigned.
+            eventBus.emit("bill-no-assigned", response.message.bill_no);
             if (invoice_doc.value.holdOrderId) {
               const heldOrders =
                 JSON.parse(localStorage.getItem("heldOrders")) || [];

@@ -8,7 +8,7 @@ from frappe import _
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import flt, add_days
 from tech4all_standard_pos.tech4all_standard_pos.doctype.pos_coupon.pos_coupon import update_coupon_code_count
-from tech4all_standard_pos.tech4all_standard_pos.api.posapp import get_company_domain
+from tech4all_standard_pos.tech4all_standard_pos.api.posapp import get_company_domain, get_next_bill_no
 from tech4all_standard_pos.tech4all_standard_pos.doctype.delivery_charges.delivery_charges import (
     get_applicable_delivery_charges,
 )
@@ -17,6 +17,7 @@ from tech4all_standard_pos.tech4all_standard_pos.doctype.delivery_charges.delive
 def validate(doc, method):
     validate_shift(doc)
     set_business_date(doc)
+    set_bill_no(doc)
     set_patient(doc)
     auto_set_delivery_charges(doc)
     calc_delivery_charges(doc)
@@ -39,6 +40,33 @@ def set_business_date(doc):
         # No shift context (e.g. a non-POS invoice) - fall back to the real
         # posting date rather than leaving it blank.
         doc.custom_business_date = doc.posting_date
+
+
+def set_bill_no(doc):
+    """Per-branch, per-business-day sequential number shown on both the KOT
+    ticket and the printed receipt - must run after set_business_date() above,
+    since a freshly-allocated number needs doc.custom_business_date already set.
+
+    Never reassigned once present (validate() runs on every save, not just
+    the first) - otherwise a walk-up invoice edited before submit would burn
+    through extra numbers each time it's saved.
+    """
+    if doc.get("bill_no"):
+        return
+
+    if doc.get("sales_order"):
+        # KOT-linked sale - the Sales Order already has one (assigned at
+        # creation, see posapp.create_sales_order_from_pos), reuse it rather
+        # than allocating a second number for the same sale.
+        doc.bill_no = frappe.db.get_value("Sales Order", doc.sales_order, "bill_no")
+        if doc.bill_no:
+            return
+
+    # Walk-up sale with no KOT order behind it - allocate fresh.
+    branch = doc.pos_profile and frappe.get_cached_value(
+        "POS Profile", doc.pos_profile, "custom_branch"
+    )
+    doc.bill_no = get_next_bill_no(branch, doc.custom_business_date)
 
 
 def set_mode_of_payment(doc):

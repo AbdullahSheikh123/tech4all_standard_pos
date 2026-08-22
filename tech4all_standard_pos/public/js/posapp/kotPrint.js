@@ -89,8 +89,9 @@ export function buildKotHtml(offlineData) {
 </head>
 <body>
     <div class="header">
-=        <div><strong>Standard</strong></div>
+        <div><strong>Standard</strong></div>
         <p class="text-center" style="margin-bottom: 0.25rem">KOT-PRINT</p>
+        ${offlineData?.bill_no ? `<p class="text-center" style="margin: 0 0 0.25rem"><strong>Bill No: ${offlineData.bill_no}</strong></p>` : ""}
     </div>
 
     <table>

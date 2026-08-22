@@ -268,6 +268,7 @@ export async function printInvoice(invoiceId, offline_paid_amount, offline_paid_
             <img src="/assets/tech4all_standard_pos/js/posapp/components/pos/client_logo.png" alt="Random Image"/>
         <div style="width: 28%; margin: 10px auto;">
         </div>
+        ${offlineData.bill_no ? `<p style="margin: 4px 0;"><strong>Bill No: ${offlineData.bill_no}</strong></p>` : ""}
     </div>
     <div style="width: 55%; margin: 0 auto; text-align: left; line-height: 1.5;">
         <table style="width: 100%; font-size:12px; line-height: 0.7;">

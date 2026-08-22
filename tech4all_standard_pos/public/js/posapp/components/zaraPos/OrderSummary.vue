@@ -1,6 +1,13 @@
 <template>
   <v-card elevation="1" class="border-16 summary-main-card">
     <v-card class="pa-4 ma-3 order-card" style="background: #f4f4f4" elevation="0">
+      <!-- Bill No - server-assigned, so only appears once a KOT ticket or
+           invoice has actually been created for this cart (see billNo ref). -->
+      <v-row v-if="billNo" class="px-1 pb-2">
+        <v-col cols="12" class="py-0">
+          <strong>Bill No: </strong><span>{{ billNo }}</span>
+        </v-col>
+      </v-row>
       <!-- Table Heading -->
       <v-row class="table-header">
         <v-col cols="5">
@@ -414,6 +421,15 @@ const saleOrderBtns = ref(false);
 const saleOrderPayload = ref("");
 const dispathLoading = ref(false);
 const tableNo = ref("");
+// Server-assigned, per-branch per-business-day number shown on both the KOT
+// ticket and the receipt - kept in sync with whichever of the two ways it
+// becomes known: a KOT/Sales Order carrying its own bill_no (see the
+// saleOrderPayload watcher below), or a walk-up invoice's submit response
+// (see the "bill-no-assigned" listener in onMounted).
+const billNo = ref("");
+watch(saleOrderPayload, (order) => {
+  billNo.value = order?.bill_no || "";
+});
 
 
 
@@ -701,8 +717,16 @@ const generateKotPrint = async () => {
     }));
 
     console.log("KOT data", doc);
-    printKotSmart(doc, pos_profile.value.custom_branch);
+    // Push first, then print - so the ticket carries the real, server-
+    // assigned Bill No instead of printing blank on the very first KOT for
+    // a table. pushToSalesOrder sets saleOrderPayload (not `doc` itself) on
+    // success, so pull bill_no across before printing. Still prints
+    // unconditionally afterward, same as before this change - a save
+    // failure or offline queueing means no Bill No yet (nothing to pull),
+    // not a lost kitchen ticket.
     await pushToSalesOrder(doc);
+    doc.bill_no = saleOrderPayload.value?.bill_no;
+    printKotSmart(doc, pos_profile.value.custom_branch);
   }
 };
 
@@ -1478,7 +1502,13 @@ onMounted(() => {
     items.value = [];
     invoiceItems.value = [];
     holdOrderId.value = null;
+    billNo.value = "";
     defaultSaleOrderValue()
+  });
+  // Walk-up sale (no KOT order) - the only place its Bill No ever becomes
+  // known is the invoice submit response, from PaymentNew.vue.
+  eventBus.on("bill-no-assigned", (bill_no) => {
+    billNo.value = bill_no || "";
   });
   eventBus.on("selected_order_type", (type) => {
     selectedOrderType.value = type;
@@ -1540,6 +1570,7 @@ onMounted(() => {
 onUnmounted(() => {
   eventBus.off("app-internet-status");
   eventBus.off("set-default-value");
+  eventBus.off("bill-no-assigned");
   eventBus.off("exist-item-cart");
   eventBus.off("add-to-cart");
   eventBus.off("show-sale-order");
